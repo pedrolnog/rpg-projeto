@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "JogosSalvos.h"
+
+/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+
+struct save {
+	int timestamp;
+	int nivel;
+	int zona;
+	int checkpoint;
+};
+
+#define MAXIMO_SAVES 10
+
+void jogosSalvos() {
+	struct save Saves[MAXIMO_SAVES];
+	size_t i;
+	FILE *saveFiles;
+
+	memset(Saves, -1, sizeof(Saves)); // Define todos os parâmetros das structs em Save como 0. 
+	
+	// Para mais informações, veja: https://www.geeksforgeeks.org/memset-c-example/ ou https://gist.github.com/juniorcesarabreu/ff81bac6dd8510bcd1a816f270223168
+	
+	
+
+	// Imprimindo todos os jogos salvos. Utiliza um loop que se mantém enquanto i é menor que a quantidade de itens em Saves.
+	printf("[ JOGOS SALVOS ]\n");
+	for (i = 0; i < (sizeof(Saves) / sizeof(Saves[0])); i++) {
+		if (!(Saves[i].timestamp = -1)) {
+			printf("%d - Zona %d\n", i+1, Saves[i].zona);
+		} else {
+			printf("%d - ESPACO VAZIO\n", i+1);
+			continue;
+		}
+	}
+	
+}
