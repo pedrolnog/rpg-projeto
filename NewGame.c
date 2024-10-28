@@ -4,19 +4,28 @@
 #include <stdlib.h>
 #include <time.h>
 
-Save newGame() {
+int newGame() {
+    FILE *saveFiles;
     Save save;
+    
+    saveFiles = fopen("saveFiles.txt", "w");
 
-    printf("[NOVO JOGO]\n");
-    printf("Insira o nome do jogador: ");
-    scanf("%49s", save.personagem.nome); // Checar uso de ponteiros !
-    save.personagem.vida = 100;
-    save.personagem.xp = 0;
-    save.nivel = 1;
-    save.checkpoint = 0;
-    save.timestamp = time(NULL);
+        if (saveFiles == NULL) {
+            printf("Erro");
+            return 0;
+        } else {
+            printf("[NOVO JOGO]\n");
+            printf("Insira o nome do jogador: ");
+            scanf("%49s", save.personagem.nome); // Checar uso de ponteiros !
+            save.personagem.vida = 100;
+            save.personagem.xp = 0;
+            save.nivel = 1;
+            save.checkpoint = 0;
+            save.timestamp = time(NULL);
 
-    printf("Save criado!");
-
-    return save;
+            fprintf(saveFiles, "%s %d %d %d %d %d\n", 
+            save.personagem.nome, save.personagem.vida, save.personagem.xp, save.nivel, save.checkpoint, save.timestamp);
+            fclose(saveFiles);
+        }
+    return 1;
 }
