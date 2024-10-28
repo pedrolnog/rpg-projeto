@@ -4,7 +4,7 @@ CFLAGS = -Wall -g
 TARGET = jogo
 
 # Arquivos objeto
-OBJ = main.o JogosSalvos.o
+OBJ = main.o JogosSalvos.o NewGame.o
 
 # Regra principal
 all: $(TARGET)
@@ -19,6 +19,9 @@ main.o: main.c JogosSalvos.h
 
 JogosSalvos.o: JogosSalvos.c JogosSalvos.h
 	$(CC) $(CFLAGS) -c JogosSalvos.c
+
+NewGame.o: NewGame.c NewGame.h
+	$(CC) $(CFLAGS) -c NewGame.c
 
 # Limpar arquivos objeto e executável
 clean:

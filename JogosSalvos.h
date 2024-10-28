@@ -1,7 +1,7 @@
 #ifndef JOGOSSALVOS_H
 #define JOGOSSALVOS_H
 
-struct save;
 void jogosSalvos();
+#define MAXIMO_SAVES 10
 
 #endif
