@@ -8,12 +8,11 @@ typedef struct {
 } Personagem;
 
 typedef struct {
-    int espaco;
     Personagem personagem;
 	int timestamp;
 	int nivel;
 	int checkpoint;
 } Save;
-Save newGame();
+int newGame();
 
 #endif
