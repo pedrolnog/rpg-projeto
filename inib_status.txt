@@ -1,0 +1,9 @@
+Vazio
+150
+30
+40
+25
+30
+Magia
+Toque_da_penumbra 
+15

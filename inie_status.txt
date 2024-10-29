@@ -1,0 +1,8 @@
+Cavaleiro_Negro
+50
+20
+20
+15
+10
+Magia
+Corte_Fantasma
