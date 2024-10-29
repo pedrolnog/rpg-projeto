@@ -18,7 +18,7 @@ void jogosSalvos() {
 	
 	// Para mais informações, veja: https://www.geeksforgeeks.org/memset-c-example/ ou https://gist.github.com/juniorcesarabreu/ff81bac6dd8510bcd1a816f270223168
 	
-	saveFiles = fopen("saveFiles.txt", "r");
+	saveFiles = fopen("gameinfo/saveFiles.txt", "r");
 
 	fscanf(saveFiles, "%s %d %d %d %d %d", save.personagem.nome, &save.personagem.vida, &save.personagem.xp, &save.nivel, &save.checkpoint, &save.timestamp);
 

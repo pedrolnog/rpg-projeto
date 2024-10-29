@@ -8,7 +8,7 @@ int newGame() {
     FILE *saveFiles;
     Save save;
     
-    saveFiles = fopen("saveFiles.txt", "w");
+    saveFiles = fopen("gameinfo/saveFiles.txt", "w");
 
         if (saveFiles == NULL) {
             printf("Erro");

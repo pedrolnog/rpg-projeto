@@ -14,7 +14,7 @@ int main() {
     printf("%d", access(nomeArquivo, F_OK));
     if (access(nomeArquivo, F_OK) == -1) {
         //https://www.learnc.net/c-tutorial/c-file-exists/
-        FILE *saveFiles = fopen("saveFiles.txt", "w");
+        FILE *saveFiles = fopen("gameinfo/saveFiles.txt", "w");
         if (saveFiles == NULL) {
             printf("Erro na criação do saveFiles.txt");
         } else {

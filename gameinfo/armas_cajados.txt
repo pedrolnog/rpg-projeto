@@ -1,0 +1,8 @@
+Cajado_do_Sabio          
+Gelo 
+3 
+12 
+Sepultura_Glacial 
+3 
+15 
+Congelar 

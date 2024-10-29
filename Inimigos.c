@@ -42,7 +42,7 @@ int inimigo_comum(){
 	FILE *inimigoComum; // ponteiro dos status do inimigo comum
 	ini_comum inic; 
 	
-	inimigoComum = fopen("inic_status.txt", "r");
+	inimigoComum = fopen("gameinfo/inic_status.txt", "r");
 	if(inimigoComum==NULL){
 		printf("Programa foi de F");
 		return 0;
@@ -67,7 +67,7 @@ int inimigo_elite(){
 	FILE *inimigoElite; //Ponteiro dos status do inimigo elite
 	ini_elite inie;
 	
-	inimigoElite = fopen("inie_status.txt", "r");
+	inimigoElite = fopen("gameinfo/inie_status.txt", "r");
 	if(inimigoElite == NULL){
 		printf("Programa foi de F");
 		return 0;
@@ -95,7 +95,7 @@ int inimigo_boss(){
 	FILE *inimigoBoss;
 	ini_boss inib;
 	
-	inimigoBoss = fopen("inib_status.txt", "r");
+	inimigoBoss = fopen("gameinfo/inib_status.txt", "r");
 	if(inimigoBoss == NULL){
 		printf("O programa foi de F");
 		return 0;
