@@ -1,5 +1,8 @@
 #include "JogosSalvos.h"
 #include "newGame.h"
+#include "Inimigos.h"
+#include "armas.h"
+#include "personagem.h"
 #include <stdio.h>
 #include <unistd.h> // p/ checar se arq. existe
 #include <stdlib.h>
@@ -7,18 +10,18 @@
 
 int main() {
     int escolha;
-    char *nomeArquivo = "saveFiles.txt";
+    char *nomeArquivo = "./gameinfo/saveFiles.txt";
     
     setlocale(LC_ALL, "Portuguese"); // UTF-8 não funciona. Mudar encoding. (https://cursos.alura.com.br/forum/topico-acentuacao-com-setlocale-nao-funciona-105663)
 
     printf("%d", access(nomeArquivo, F_OK));
     if (access(nomeArquivo, F_OK) == -1) {
         //https://www.learnc.net/c-tutorial/c-file-exists/
-        FILE *saveFiles = fopen("gameinfo/saveFiles.txt", "w");
+        FILE *saveFiles = fopen("./gameinfo/saveFiles.txt", "w");
         if (saveFiles == NULL) {
-            printf("Erro na criação do saveFiles.txt");
+            printf("Erro na criação do saveFiles.txt\n");
         } else {
-            printf("Savefile criado");
+            printf("Savefile criado\n");
         }
         fclose(saveFiles);
     }
@@ -29,6 +32,7 @@ int main() {
 
         switch (escolha) {
             case 1:
+                personagem();
                 if (newGame() == 1) {
                     printf("Save criado!\n");
                 } else {
@@ -37,6 +41,8 @@ int main() {
                 break;
             case 2:
                 jogosSalvos();
+                inimigo_comum();
+                ataque();
                 break;
         }
     } while (escolha != 4);
