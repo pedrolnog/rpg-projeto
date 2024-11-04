@@ -8,4 +8,5 @@ int ataque();
 int bloquear(int danoDoSlime);
 int fugir(int agilidadeHeroi, int agilidadeInimigo);
 int usar_item();
+ 
 #endif

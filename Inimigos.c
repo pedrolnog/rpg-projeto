@@ -34,10 +34,10 @@ struct inimigo_boss{
 	char hab_esp[N]; 
 	char fraq[N];
 	char imuni[N]; //Imunidade
-	int regen; //Regenera��o
+	int regen; //Regenera??o
 }typedef ini_boss;
 
-//Fun��o que exibe os status do inimigo comum
+//Fun??o que exibe os status do inimigo comum
 int inimigo_comum(){
 	FILE *inimigoComum; // ponteiro dos status do inimigo comum
 	ini_comum inic; 
@@ -51,7 +51,7 @@ int inimigo_comum(){
 	fscanf(inimigoComum, "%s %d %d %d %d %d %s\n",&inic.nome, &inic.hp, &inic.agi, &inic.def,
 	 &inic.ata, &inic.mp, &inic.fraq);
 	 
-	//Exibi��o dos status na Tela
+	//Exibi??o dos status na Tela
 	printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
 	printf("                STATUS DO SLIME                \n");
 	printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n"); 
@@ -62,7 +62,7 @@ int inimigo_comum(){
 	system("pause");
 	return 0;
 }
-//Fun��o que exibe os status do inimigo elite
+//Fun??o que exibe os status do inimigo elite
 int inimigo_elite(){
 	FILE *inimigoElite; //Ponteiro dos status do inimigo elite
 	ini_elite inie;
@@ -77,7 +77,7 @@ int inimigo_elite(){
 	fscanf(inimigoElite, "%s %d %d %d %d %d %s %s\n",&inie.nome, &inie.hp, &inie.agi, &inie.def,
 	 &inie.ata, &inie.mp, &inie.fraq, &inie.hab_esp);
 	 
-	//Exibi��o dos status na Tela 
+	//Exibi??o dos status na Tela 
 	printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
 	printf("          STATUS DO CAVALEIRO NEGRO            \n");
 	printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
@@ -89,7 +89,7 @@ int inimigo_elite(){
 	return 0;
 }
 
-//Fun��o que exibe os status do inimigo Boss
+//Fun??o que exibe os status do inimigo Boss
 
 int inimigo_boss(){
 	FILE *inimigoBoss;
@@ -105,11 +105,11 @@ int inimigo_boss(){
 	fscanf(inimigoBoss, "%s %d %d %d %d %d %s %s %d\n",&inib.nome, &inib.hp, &inib.agi, &inib.def,
 	 &inib.ata, &inib.mp, &inib.fraq, &inib.hab_esp, &inib.regen);
 	 
-	//Exibi��o dos status na Tela 
+	//Exibi??o dos status na Tela 
 	printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
 	printf("            STATUS DO BOSS                     \n");
 	printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	printf("Nome: %s\nHP: %d\nAgilidade: %d\nDefesa: %d\nAtaque: %d\nMP: %d\nFraqueza: %s\nHabilidade especial: %s\nRegenera��o %d%%\n", 
+	printf("Nome: %s\nHP: %d\nAgilidade: %d\nDefesa: %d\nAtaque: %d\nMP: %d\nFraqueza: %s\nHabilidade especial: %s\nRegenera??o %d%%\n", 
 	inib.nome, inib.hp, inib.agi, inib.def, inib.ata, inib.mp, inib.fraq, inib.hab_esp, inib.regen);
 	
 	
