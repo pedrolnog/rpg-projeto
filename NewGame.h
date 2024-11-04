@@ -5,7 +5,7 @@ typedef struct {
     char nome[50];
     int vida;
     int xp;
-} Personagem;
+} Personagem; // Struct teste
 
 typedef struct {
     Personagem personagem;
@@ -13,6 +13,7 @@ typedef struct {
 	int nivel;
 	int checkpoint;
 } Save;
+
 int newGame();
 
 #endif

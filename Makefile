@@ -23,6 +23,15 @@ JogosSalvos.o: JogosSalvos.c JogosSalvos.h
 NewGame.o: NewGame.c NewGame.h
 	$(CC) $(CFLAGS) -c NewGame.c
 
+inimigos.o: Inimigos.c Inimigos.h
+	$(CC) $(CFLAGS) -c Inimigos.c 
+
+armas.o: armas.c armas.h
+	$(CC) $(CFLAGS) -c armas.c
+
+personagem.o: personagem.c personagem.h 
+	$(CC) $(CFLAGS) -c personagem.c
+
 # Limpar arquivos objeto e executável
 clean:
 	rm -f $(OBJ) $(TARGET)
