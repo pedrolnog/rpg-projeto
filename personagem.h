@@ -1,7 +1,5 @@
 #ifndef PERSONAGEM_H
 #define PERSONAGEM_H
-
- pedro.wip-batalha_personagem
 #define N 50
 
 typedef struct{
@@ -20,23 +18,3 @@ void atributos(Persona *MC);
 void personagem();
 
 #endif
-
-#define N 50
-
-typedef struct{
-	char nome[N];
-	int lvl; //nivel
-	int exp; //experiencia
-	int hp;//Health Points
-	int agi;//Agilidade
-	int def;//Dfesa
-	int ata;//Ataque
-	int mp;//Mana Points
-	int ouro; //dinheiro
-} Persona;
-
-void atributos(Persona *MC);
-void personagem();
-
-#endif
- main
