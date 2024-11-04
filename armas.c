@@ -9,16 +9,7 @@
 
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
-typedef struct Armas{
-	char nome[N]; // nome da espada
-	char tipoDano[T]; 
-	int danoMin;
-	int danoMax;
-	char habilidade[H]; // nome da habilidade
-	int danoMinH;
-	int danoMaxH;
-	char efeito[E]; // efeito que a habilidade causa no inimigo caso acerte
-}arma;
+
 
 // Fun��o que mostra as informa��es da espada
 void espadas(){
@@ -143,21 +134,7 @@ int usar_item(){
 	do{
 	printf("MOCHILA:\n1.Pocao de Cura(3x)\n5.Sair\n");
 	scanf("%d", &escolhaItem);
-	}while(escolhaItem != 1 && escolhaItem != 5);
+	} while(escolhaItem != 1 && escolhaItem != 5);
+
 	return escolhaItem;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

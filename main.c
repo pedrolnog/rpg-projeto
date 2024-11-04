@@ -9,9 +9,10 @@ int main() {
     int escolha;
     char *nomeArquivo = "saveFiles.txt";
     
-    setlocale(LC_ALL, "Portuguese"); // UTF-8 não funciona. Mudar encoding. (https://cursos.alura.com.br/forum/topico-acentuacao-com-setlocale-nao-funciona-105663)
+    setlocale(LC_ALL, "Portuguese"); // UTF-8 nï¿½o funciona. Mudar encoding. (https://cursos.alura.com.br/forum/topico-acentuacao-com-setlocale-nao-funciona-105663)
 
     printf("%d", access(nomeArquivo, F_OK));
+    
     if (access(nomeArquivo, F_OK) == -1) {
         //https://www.learnc.net/c-tutorial/c-file-exists/
         FILE *saveFiles = fopen("gameinfo/saveFiles.txt", "w");
@@ -22,6 +23,7 @@ int main() {
         }
         fclose(saveFiles);
     }
+
     do {
         printf("\n Coração de Auryn \n");
         printf("1. Novo Jogo\n2. Continuar\n3. Opções\n4. Sair\n");
