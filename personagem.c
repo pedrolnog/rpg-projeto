@@ -3,19 +3,7 @@
 #include "personagem.h"
 #define N 50
 
-typedef struct{
-    char nome[N];
-    int lvl; //nivel
-    int exp; //experiencia
-    int hp;//Health Points
-    int agi;//Agilidade
-    int def;//Dfesa
-    int ata;//Ataque
-    int mp;//Mana Points
-    int ouro; //dinheiro
-}Persona;
-
-void atributos(Persona MC){
+void atributos(Persona *MC){
     int pts = 10;
     int option;
     do{
@@ -67,7 +55,7 @@ void personagem(){
     printf("Distribua os pontos do personagem\n\n");
     atributos(&MC);
 
-    FILEarquivo = fopen("personagem.txt", "w");
+    FILE *arquivo = fopen("personagem.txt", "w");
     if(arquivo == NULL){
         printf("Erro ao abrir o arquivo.");
     } else {
@@ -82,5 +70,4 @@ void personagem(){
         fprintf(arquivo, "Agilidade: %d\n", MC.agi);
         fclose(arquivo);
     }
- main
 }
