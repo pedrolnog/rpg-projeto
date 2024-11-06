@@ -2,7 +2,6 @@
 #include "newGame.h"
 #include "Inimigos.h"
 #include "armas.h"
-#include "personagem.h"
 #include <stdio.h>
 #include <unistd.h> // p/ checar se arq. existe
 #include <stdlib.h>
@@ -20,7 +19,7 @@ int main() {
         //https://www.learnc.net/c-tutorial/c-file-exists/
         FILE *saveFiles = fopen("./gameinfo/saveFiles.txt", "w");
         if (saveFiles == NULL) {
-            printf("Erro na criação do saveFiles.txt\n");
+            printf("Erro na criaï¿½ï¿½o do saveFiles.txt\n");
         } else {
             printf("Savefile criado\n");
         }
@@ -28,13 +27,12 @@ int main() {
     }
 
     do {
-        printf("\n Coração de Auryn \n");
-        printf("1. Novo Jogo\n2. Continuar\n3. Opções\n4. Sair\n");
+        printf("\n CoraÃ§Ã£o de Auryn \n");
+        printf("1. Novo Jogo\n2. Continuar\n3. OpÃ§Ãµes\n4. Sair\n");
         scanf("%d", &escolha);
 
         switch (escolha) {
             case 1:
-                personagem();
                 if (newGame() == 1) {
                     printf("Save criado!\n");
                 } else {

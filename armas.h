@@ -1,6 +1,11 @@
 #ifndef ARMAS_H
 #define ARMAS_H
 
+#define N 50
+#define T 25
+#define H 25
+#define E 25
+
 typedef struct Armas{
 	char nome[N]; // nome da espada
 	char tipoDano[T]; 
@@ -15,9 +20,6 @@ typedef struct Armas{
 void espadas();
 void arcos();
 void cajados();
-int ataque();
-int bloquear(int danoDoSlime);
-int fugir(int agilidadeHeroi, int agilidadeInimigo);
-int usar_item();
+
  
 #endif

@@ -1,11 +1,19 @@
 #ifndef NEWGAME_H
 #define NEWGAME_H
 
-typedef struct {
-    char nome[50];
-    int vida;
-    int xp;
-} Personagem; // Struct teste
+#define N 50
+
+typedef struct{
+	char nome[N];
+	int lvl; //nivel
+	int exp; //experiencia
+	int hp;//Health Points
+	int agi;//Agilidade
+	int def;//Dfesa
+	int ata;//Ataque
+	int mp;//Mana Points
+	int ouro; //dinheiro
+} Personagem;
 
 typedef struct {
     Personagem personagem;
@@ -15,5 +23,7 @@ typedef struct {
 } Save;
 
 int newGame();
+void atributos(Save *save);
+void personagem(Save *save);
 
 #endif

@@ -18,11 +18,13 @@ void jogosSalvos() {
 	
 	// Para mais informações, veja: https://www.geeksforgeeks.org/memset-c-example/ ou https://gist.github.com/juniorcesarabreu/ff81bac6dd8510bcd1a816f270223168
 	
-	saveFiles = fopen("gameinfo/saveFiles.txt", "r");
+	saveFiles = fopen("gameinfo/saveFile.txt", "r");
 
-	fscanf(saveFiles, "%s %d %d %d %d %d", save.personagem.nome, &save.personagem.vida, &save.personagem.xp, &save.nivel, &save.checkpoint, &save.timestamp);
+	fscanf(saveFiles,"Nome: %s Nivel: %d, Experiencia: %d, Ouro: %d, HP: %d, MP: %d, Ataque: %d, Defesa: %d, Agilidade: %d, Área: %d, Checkpoint: %d, Timestamp: %d", &save.personagem.nome, &save.personagem.lvl, &save.personagem.exp, &save.personagem.ouro, &save.personagem.hp, &save.personagem.mp, &save.personagem.ata, &save.personagem.def, &save.personagem.agi, &save.nivel, &save.checkpoint, &save.timestamp);
 
-	printf("Nome: %s | HP: %d | XP: %d | Nivel: %d | Checkpoint: %d | Ultimo save ha: %d horas\n", save.personagem.nome, save.personagem.vida, save.personagem.xp, save.nivel, save.checkpoint, (((int) time(NULL) - save.timestamp) / 3600));
+	printf("--------------------------------------------------\n");
+	printf("Nome: %s Nivel: %d, Experiencia: %d, Ouro: %d, HP: %d, MP: %d, Ataque: %d\nDefesa: %d, Agilidade: %d\nÁrea: %d, Checkpoint: %d, Timestamp: %d\n", save.personagem.nome, save.personagem.lvl, save.personagem.exp, save.personagem.ouro, save.personagem.hp, save.personagem.mp, save.personagem.ata, save.personagem.def, save.personagem.agi, save.nivel, save.checkpoint, (((int) time(NULL) - save.timestamp) / 3600));
+	printf("--------------------------------------------------\n");
 
 	/* Imprimindo todos os jogos salvos. Utiliza um loop que se mantém enquanto i é menor que a quantidade de itens em Saves.
 	printf("[ JOGO SALVOS ]\n");
