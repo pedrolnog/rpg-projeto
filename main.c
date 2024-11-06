@@ -35,6 +35,8 @@ int main() {
             case 1:
                 if (newGame() == 1) {
                     printf("Save criado!\n");
+                    inimigo_comum();
+                    ataque();
                 } else {
                     printf("Falha em criar save\n");
                 };
