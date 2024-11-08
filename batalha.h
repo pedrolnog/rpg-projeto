@@ -1,27 +1,27 @@
 #ifndef BATALHA_H
 #define BATALHA_H
-#include "personagem.h"
+
 #include "Inimigos.h"
 
 typedef struct { 
-    Persona personagem;
-    inimigo_boss Boss;
+    Personagem personagem;
+    ini_boss Boss;
     int turnoAtual;
     int quantTurnos;
     int vencedor;
 } Bossfight;
 
 typedef struct { 
-    Persona personagem;
-    inimigo_elite inimigoElite;
+    Personagem personagem;
+    ini_elite inimigoElite;
     int turnoAtual;
     int quantTurnos;
     int vencedor;
 } Elitefight;
 
 typedef struct { 
-    Persona personagem;
-    inimigo_comum inimigo;
+    Personagem personagem;
+    ini_comum inimigo;
     int turnoAtual;
     int quantTurnos;
     int vencedor;

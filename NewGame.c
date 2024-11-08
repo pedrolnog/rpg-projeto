@@ -1,5 +1,6 @@
 #include "JogosSalvos.h"
 #include "NewGame.h"
+#include "ManipArquivos.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -62,28 +63,12 @@ void personagem(Save *save){
     printf("%s", save->personagem.nome);
     atributos(save);
 
-    FILE *arquivo = fopen("./gameinfo/saveFile.txt", "w");
-    if(arquivo == NULL){
-        printf("Erro ao abrir o arquivo.");
-    } else {
-        fprintf(arquivo, "Nome: %49s Nivel: %d, Experiencia: %d, Ouro: %d, HP: %d, MP: %d, Ataque: %d, Defesa: %d, Agilidade: %d, ", save->personagem.nome, save->personagem.lvl, save->personagem.exp, save->personagem.ouro, save->personagem.hp, save->personagem.mp, save->personagem.ata, save->personagem.def, save->personagem.agi);
-
-        /*
-        Depreciado.
-
-        fprintf(arquivo, "Nome: %s\n", save.personagem.nome);
-        fprintf(arquivo, "Nivel: %d\n", save.personagem.lvl);
-        fprintf(arquivo, "Experiencia: %d\n", save.personagem.exp);
-        fprintf(arquivo, "Ouro: %d\n", save.personagem.ouro);
-        fprintf(arquivo, "HP: %d\n", save.personagem.hp);
-        fprintf(arquivo, "MP: %d\n", save.personagem.mp);
-        fprintf(arquivo, "Ataque: %d\n", save.personagem.ata);
-        fprintf(arquivo, "Defesa: %d\n", save.personagem.def);
-        fprintf(arquivo, "Agilidade: %d\n", save.personagem.agi);
-        */
+    FILE *arquivo = abrirArquivo("./gameinfo/saveFile.txt", "w");
+    
+    fprintf(arquivo, "Nome: %49s Nivel: %d, Experiencia: %d, Ouro: %d, HP: %d, MP: %d, Ataque: %d, Defesa: %d, Agilidade: %d, ", 
+    save->personagem.nome, save->personagem.lvl, save->personagem.exp, save->personagem.ouro, save->personagem.hp, save->personagem.mp, save->personagem.ata, save->personagem.def, save->personagem.agi);
        
-        fclose(arquivo);
-    }
+    fclose(arquivo);
 }
 
 // Parte de Pedro
@@ -92,23 +77,18 @@ int newGame() {
     FILE *saveFile;
     Save save;
     
-    saveFile = fopen("gameinfo/saveFile.txt", "a");
+    saveFile = abrirArquivo("./gameinfo/saveFile.txt", "a");
+    
+    printf("[NOVO JOGO]\n");
+        
+    save.nivel = 1;
+    save.checkpoint = 0;
+    save.timestamp = time(NULL);
 
-        if (saveFile == NULL) {
-            printf("Erro");
-            return 0;
-        } else {
-            printf("[NOVO JOGO]\n");
-            
-            save.nivel = 1;
-            save.checkpoint = 0;
-            save.timestamp = time(NULL);
+    personagem(&save);
 
-            personagem(&save);
+    fprintf(saveFile, "Área: %d, Checkpoint: %d, Timestamp: %d\n", save.nivel, save.checkpoint, save.timestamp);
 
-            fprintf(saveFile, "Área: %d, Checkpoint: %d, Timestamp: %d\n", save.nivel, save.checkpoint, save.timestamp);
-
-            fclose(saveFile);
-        }
+    fclose(saveFile);
     return 1;
 }

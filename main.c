@@ -2,6 +2,8 @@
 #include "newGame.h"
 #include "Inimigos.h"
 #include "armas.h"
+#include "batalha.h"
+#include "ManipArquivos.h"
 #include <stdio.h>
 #include <unistd.h> // p/ checar se arq. existe
 #include <stdlib.h>
@@ -9,7 +11,7 @@
 
 int main() {
     int escolha;
-    char *nomeArquivo = "./gameinfo/saveFiles.txt";
+    char *nomeArquivo = "./gameinfo/saveFile.txt";
     
     setlocale(LC_ALL, "Portuguese"); // UTF-8 n�o funciona. Mudar encoding. (https://cursos.alura.com.br/forum/topico-acentuacao-com-setlocale-nao-funciona-105663)
 
@@ -17,13 +19,8 @@ int main() {
     
     if (access(nomeArquivo, F_OK) == -1) {
         //https://www.learnc.net/c-tutorial/c-file-exists/
-        FILE *saveFiles = fopen("./gameinfo/saveFiles.txt", "w");
-        if (saveFiles == NULL) {
-            printf("Erro na cria��o do saveFiles.txt\n");
-        } else {
-            printf("Savefile criado\n");
-        }
-        fclose(saveFiles);
+        FILE *saveFile = abrirArquivo(nomeArquivo, "w");
+        fclose(saveFile);
     }
 
     do {

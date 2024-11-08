@@ -1,8 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "inimigos.h"
-#include "personagem.h"
-
 
 int ataque(/*se tiver algum buuff ele vai vim como parametro*/){
 	// srand(time(NULL));
