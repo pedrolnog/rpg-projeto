@@ -2,6 +2,7 @@
 #define NEWGAME_H
 
 #define N 50
+#define MAXIMO_SAVES 1
 
 typedef struct{
 	char nome[N];
@@ -25,5 +26,6 @@ typedef struct {
 int newGame();
 void atributos(Save *save);
 void personagem(Save *save);
+void jogosSalvos();
 
 #endif

@@ -15,11 +15,10 @@ typedef struct Armas{
 	int danoMinH;
 	int danoMaxH;
 	char efeito[E]; // efeito que a habilidade causa no inimigo caso acerte
-}arma;
+} arma;
 
 void espadas();
 void arcos();
 void cajados();
 
- 
 #endif
