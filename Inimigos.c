@@ -1,127 +1,201 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "inimigos.h"
-# define N 50
-
-struct inimigo_comum{
-	char nome[N];
-	int hp; //Health points
-	int agi; //Agilidade
-	int def; //Defesa
-	int ata; //Ataque
-	int mp; //Mana points
-	char fraq[N]; //Fraqueza
-}typedef ini_comum;
-
-struct inimigo_elite{
-	char nome[N]; 
-	int hp; 
-	int agi; 
-	int def; 
-	int ata;
-	int mp; 
-	char fraq[N];
-	char hab_esp[N]; //Habilidade especial
-}typedef ini_elite;
-
-struct inimigo_boss{
-	char nome[N]; 
-	int hp; 
-	int agi;
-	int def;
-	int ata;
-	int mp; 
-	char hab_esp[N]; 
-	char fraq[N];
-	char imuni[N]; //Imunidade
-	int regen; //Regenera??o
-}typedef ini_boss;
-
-//Fun??o que exibe os status do inimigo comum
-int inimigo_comum(){
-	FILE *inimigoComum; // ponteiro dos status do inimigo comum
-	ini_comum inic; 
+/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+//Função que exibe os status do inimigo comum
+int ler_inimigo_comum(){ 
 	
-	inimigoComum = fopen("gameinfo/inic_status.txt", "r");
-	if(inimigoComum==NULL){
-		printf("Programa foi de F");
+	ic = fopen("inic_status.txt", "r");
+	if(ic==NULL){
+		printf("ERRO!\n");
 		return 0;
 	} 
 	//Entrada de Dados via arquivo ".txt"
-	fscanf(inimigoComum, "%s %d %d %d %d %d %s\n",&inic.nome, &inic.hp, &inic.agi, &inic.def,
+	fscanf(ic, "%s %d %d %d %d %d %s",&inic.nome, &inic.hp, &inic.agi, &inic.def,
 	 &inic.ata, &inic.mp, &inic.fraq);
 	 
-	//Exibi??o dos status na Tela
+	//Exibição dos status na Tela
 	printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
 	printf("                STATUS DO SLIME                \n");
 	printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n"); 
 	printf("Nome: %s\nHP: %d\nAgilidade: %d\nDefesa: %d\nAtaque: %d\nMP: %d\nFraqueza: %s\n", inic.nome, inic.hp, inic.agi, 
 	inic.def, inic.ata, inic.mp, inic.fraq);
 	
-	fclose(inimigoComum);
-	system("pause");
+	fclose(ic);
 	return 0;
 }
-//Fun??o que exibe os status do inimigo elite
-int inimigo_elite(){
-	FILE *inimigoElite; //Ponteiro dos status do inimigo elite
-	ini_elite inie;
+//Função que exibe os status do inimigo elite
+int ler_inimigo_elite(){
 	
-	inimigoElite = fopen("gameinfo/inie_status.txt", "r");
-	if(inimigoElite == NULL){
-		printf("Programa foi de F");
+	
+	ie = fopen("inie_status.txt", "r");
+	if(ie == NULL){
+		printf("ERRO!");
 		return 0;
 	}
 	
 	//Entrada de Dados via arquivo ".txt"
-	fscanf(inimigoElite, "%s %d %d %d %d %d %s %s\n",&inie.nome, &inie.hp, &inie.agi, &inie.def,
+	fscanf(ie, "%s %d %d %d %d %d %s %s\n",&inie.nome, &inie.hp, &inie.agi, &inie.def,
 	 &inie.ata, &inie.mp, &inie.fraq, &inie.hab_esp);
 	 
-	//Exibi??o dos status na Tela 
+	//Exibição dos status na Tela 
 	printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
 	printf("          STATUS DO CAVALEIRO NEGRO            \n");
 	printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
 	printf("Nome: %s\nHP: %d\nAgilidade: %d\nDefesa: %d\nAtaque: %d\nMP: %d\nFraqueza: %s\nHabilidade especial: %s\n", 
 	inie.nome, inie.hp, inie.agi, inie.def, inie.ata, inie.mp, inie.fraq, inie.hab_esp);
 	
-	fclose(inimigoElite);
-	system("pause");
+	fclose(ie);
 	return 0;
 }
 
-//Fun??o que exibe os status do inimigo Boss
-
-int inimigo_boss(){
-	FILE *inimigoBoss;
-	ini_boss inib;
+//Função que exibe os status do inimigo Boss
+int ler_inimigo_boss(){
 	
-	inimigoBoss = fopen("gameinfo/inib_status.txt", "r");
-	if(inimigoBoss == NULL){
+	ib = fopen("inib_status.txt", "r");
+	if(ib == NULL){
 		printf("O programa foi de F");
 		return 0;
 	}
 	
 	//Entrada de Dados via arquivo ".txt"
-	fscanf(inimigoBoss, "%s %d %d %d %d %d %s %s %d\n",&inib.nome, &inib.hp, &inib.agi, &inib.def,
+	fscanf(ib, "%s %d %d %d %d %d %s %s %d\n",&inib.nome, &inib.hp, &inib.agi, &inib.def,
 	 &inib.ata, &inib.mp, &inib.fraq, &inib.hab_esp, &inib.regen);
 	 
-	//Exibi??o dos status na Tela 
+	//Exibição dos status na Tela 
 	printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
 	printf("            STATUS DO BOSS                     \n");
 	printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	printf("Nome: %s\nHP: %d\nAgilidade: %d\nDefesa: %d\nAtaque: %d\nMP: %d\nFraqueza: %s\nHabilidade especial: %s\nRegenera??o %d%%\n", 
+	printf("Nome: %s\nHP: %d\nAgilidade: %d\nDefesa: %d\nAtaque: %d\nMP: %d\nFraqueza: %s\nHabilidade especial: %s\nRegeneração %d%%\n", 
 	inib.nome, inib.hp, inib.agi, inib.def, inib.ata, inib.mp, inib.fraq, inib.hab_esp, inib.regen);
 	
-	
-	fclose(inimigoBoss);
-	system("pause");
+	fclose(ib);
 	return 0;
 	
 }
-
-
-
-
-
-
-
+//Apaga os dados salvos na struct de inimigo comum
+int apa_inimigo_comum(){
+	ic = fopen("inic_status.txt", "w");
+	if(ic == NULL){
+		printf("ERRO!\n");
+	}
+	else{
+	fprintf(ic,"Apagado\n0\n0\n0\n0\n0\nApagado\n");
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("       Os status do SLIME foram apagados!\n");
+	}
+	fclose(ic);
+	return 0;
+}
+//Apaga os dados salvos na struc de inimigo elite
+int apa_inimigo_elite(){
+	ie = fopen("inie_status.txt", "w");
+	if(ie == NULL){
+		printf("ERRO!\n");
+	}
+	else{
+	fprintf(ie,"Apagado\n0\n0\n0\n0\n0\nApagado\nApagado\n");
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("  Os status do CAVALEIRO_NEGRO foram apagados!\n");
+	}
+	fclose(ie);
+	return 0;
+}
+//Apaga os dados salvos na struct de inimigo boss
+int apa_inimigo_boss(){
+	ib = fopen("inib_status.txt", "w");
+	if(ib == NULL){
+		printf("ERRO!\n");
+	}
+	else{
+	fprintf(ib,"Apagado\n0\n0\n0\n0\n0\nApagado\nApagado\n0\n");
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("       Os status do BOSS foram apagados!\n");
+	}
+	fclose(ib);
+	return 0;
+}
+//Atualiza os status no arquivo .txt de inimigos comuns
+int upd_inimigo_comum(){
+ic = fopen("inic_status.txt", "w");
+	if(ic == NULL){
+		printf("ERRO!\n");
+	}
+	else{
+	fprintf(ic,"Slime_V2\n35\n12\n12\n8\n18\nFogo\n");
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("     Os status do SLIME foram atualizados!\n");
+	}
+	fclose(ic);
+	return 0;
+}
+//Atualiza os status no arquivo .txt de inimigos elite
+int upd_inimigo_elite(){
+	ie = fopen("inie_status.txt", "w");
+	if(ie == NULL){
+		printf("ERRO!\n");
+	}
+	else{
+	fprintf(ie,"Cavaleiro_Negro_V2\n55\n22\n22\n18\n12\nMagia\nCorte_Fantasma\n");
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("   Os status do CAVALEIRO_NEGRO atualizados!\n");
+	}
+	fclose(ie);
+	return 0;
+}
+//Atualiza os status no arquivo .txt do inimigo boss
+int upd_inimigo_boss(){
+ib = fopen("inib_status.txt", "w");
+	if(ib == NULL){
+		printf("ERRO!\n");
+	}
+	else{
+	fprintf(ib,"Vazio_V2\n160\n35\n45\n30\n35\nMagia\nToque_da_penumbra\n20\n");
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("        Os status do BOSS atualizados!\n");
+	}
+	fclose(ib);
+	return 0;
+}
+//Cria um aqruivo .txt com os status do inimigo comum
+int cri_inimigo_comum(){
+ic = fopen("inic_status.txt", "w");
+	if(ic == NULL){
+		printf("ERRO!\n");
+	}
+	else{
+	fprintf(ic,"Slime\n30\n10\n10\n5\n15\nFogo\n");
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("        O arquivo do SLIME foi criado!\n");
+	}
+	fclose(ic);
+	return 0;
+}
+//Cria um arquivo .txt com os status do inimigo elite
+int cri_inimigo_elite(){
+ie = fopen("inie_status.txt", "w");
+	if(ie == NULL){
+		printf("ERRO!\n");
+	}
+	else{
+	fprintf(ie,"Cavaleiro_Negro\n50\n20\n20\n15\n10\nMagia\nCorte_Fantasma\n");
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("   O arquiva do CAVALEIRO_NEGRO foi criado!\n");
+	}
+	fclose(ie);
+	return 0;
+}
+//Cria um um arquivo .txt com os status do inimigo boss
+int cri_inimigo_boss(){
+ib = fopen("inib_status.txt", "w");
+	if(ib == NULL){
+		printf("ERRO!\n");
+	}
+	else{
+	fprintf(ib,"Vazio\n150\n30\n40\n25\n30\nMagia\nToque_da_penumbra\n15\n");
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("           O arquivo do BOSS criado!\n");
+	}
+	fclose(ib);
+	return 0;
+}
