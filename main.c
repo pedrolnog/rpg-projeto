@@ -1,9 +1,9 @@
-#include "JogosSalvos.h"
-#include "newGame.h"
-#include "Inimigos.h"
-#include "armas.h"
-#include "batalha.h"
-#include "ManipArquivos.h"
+#include "codigo_fonte/savegame.h"
+#include "codigo_fonte/Inimigos.h"
+#include "codigo_fonte/armas.h"
+#include "codigo_fonte/batalha.h"
+#include "codigo_fonte/armaduras.h"
+#include "codigo_fonte/ManipArquivos.h"
 #include <stdio.h>
 #include <unistd.h> // p/ checar se arq. existe
 #include <stdlib.h>
@@ -11,7 +11,7 @@
 
 int main() {
     int escolha;
-    char *nomeArquivo = "./gameinfo/saveFile.txt";
+    char *nomeArquivo = "./dados/saveFile.txt";
     
     setlocale(LC_ALL, "Portuguese"); // UTF-8 n�o funciona. Mudar encoding. (https://cursos.alura.com.br/forum/topico-acentuacao-com-setlocale-nao-funciona-105663)
 
@@ -43,6 +43,9 @@ int main() {
                 inimigo_comum();
                 ataque();
                 break;
+            case 3:
+                criar();
+
         }
     } while (escolha != 4);
 

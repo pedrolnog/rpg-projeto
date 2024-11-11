@@ -12,7 +12,7 @@ void espadas(){
 	FILE *ae;
 	arma espada;
 	
-	ae = abrirArquivo("./gameinfo/armas_espadas.txt", "r");
+	ae = abrirArquivo("./dados/armas_espadas.txt", "r");
 	
 	fscanf(ae, "%49s %24s %d %d %24s %d %d %24s", &espada.nome, &espada.tipoDano, &espada.danoMin, &espada.danoMax, &espada.habilidade, &espada.danoMinH, &espada.danoMaxH, &espada.efeito);
 	
@@ -30,7 +30,7 @@ void arcos(){
 	arma arco;
 	
 	
-	aa = abrirArquivo("./gameinfo/armas_arcos.txt", "r");
+	aa = abrirArquivo("./dados/armas_arcos.txt", "r");
 
 	
 	fscanf(aa, "%49s %24s %d %d %24s %d %d %24s", &arco.nome, &arco.tipoDano, &arco.danoMin, &arco.danoMax, &arco.habilidade, &arco.danoMinH, &arco.danoMaxH, &arco.efeito);
@@ -48,7 +48,7 @@ void cajados(){
 	arma cajado;
 	
 	
-	ac = abrirArquivo("./gameinfo/armas_cajados.txt", "r");
+	ac = abrirArquivo("./dados/armas_cajados.txt", "r");
 	
 	fscanf(ac, "%49s %24s %d %d %24s %d %d %24s", &cajado.nome, &cajado.tipoDano, &cajado.danoMin, &cajado.danoMax, &cajado.habilidade, &cajado.danoMinH, &cajado.danoMaxH, &cajado.efeito);
 	

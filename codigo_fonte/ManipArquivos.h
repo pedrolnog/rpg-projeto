@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-#define caminho_save "./gameinfo/saveFile.txt"
+#define caminho_save "./dados/saveFile.txt"
 
 FILE* abrirArquivo(const char* caminho, const char* modo);
 
