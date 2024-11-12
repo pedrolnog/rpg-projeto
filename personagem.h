@@ -14,7 +14,25 @@ typedef struct{
 	int ouro; //dinheiro
 } Persona;
 
-void atributos(Persona *MC);
-void personagem();
+typedef struct{
+	int hpPotion;
+	int mpPotion;
+	int atkBooster;
+	int defBooster;
+	int agiBooster;
+}Consumiveis;
 
+
+void personagem(Persona *MC);
+void criarPersonagem(Persona *MC);
+void statusPersonagem(Persona *MC);
+void upPersonagem(Persona *MC, int pts);
+void deletePersonagem(Persona *MC);
+void inventario(Persona *MC);
+void comprarItem(Consumiveis *itens, Persona *MC);
+void viewInventario(Consumiveis *itens);
+void descartarItem(Consumiveis *itens);
+
+FILE mcArquivo;
+FILE itensARQ;
 #endif
