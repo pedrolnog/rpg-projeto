@@ -8,7 +8,7 @@ void criar(){
 
 	FILE *vestes;
 	struct armadura atributos;
-	vestes = fopen("dados/vestes.txt", "w"); 
+	vestes = fopen("./dados/vestes.txt", "w"); 
 	
 	if (vestes == NULL){
 		printf("erro!");
