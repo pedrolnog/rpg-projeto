@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "personagem.h"
+#include "savegame.h"
+#include "ManipArquivos.h"
 #define N 50
 
 
-void inventario(Persona *MC){
+void inventario(Personagem *MC){
 	/*Criarei alguns itens de teste que vao curar vida ou mana e alguns para melhorar atributos temporariamente*/
 	Consumiveis itens = {0, 0, 0, 0, 0};
 	FILE *itensARQ;
@@ -38,7 +39,7 @@ void inventario(Persona *MC){
     
 }
 
-void comprarItem(Consumiveis *itens, Persona *MC){
+void comprarItem(Consumiveis *itens, Personagem *MC){
 	/*uma funçao para comprar itens*/
 	int shopping;
 	do{
@@ -86,45 +87,41 @@ void comprarItem(Consumiveis *itens, Persona *MC){
 		}	
 	}while(shopping != 6);
 	
-	FILE *itensARQ = fopen("inventario.txt", "w");
-	if(itensARQ == NULL){
-	    printf("Erro ao abrir o arquivo.");
-		} else {
-		    fprintf(itensARQ, "HP Potion: %d x\n", itens->hpPotion);
-		    fprintf(itensARQ, "MP Potion: %d x\n", itens->mpPotion);
-		    fprintf(itensARQ, "ATK Booster: %d x\n", itens->atkBooster);
-		    fprintf(itensARQ, "DEF Booster: %d x\n", itens->defBooster);
-		    fprintf(itensARQ, "AGI Booster: %d x\n", itens->agiBooster);
-		    fclose(itensARQ);
-		}
+	FILE *itensARQ = abrirArquivo("inventario.txt", "w");
+
+	fprintf(itensARQ, "HP Potion: %d x\n", itens->hpPotion);
+	fprintf(itensARQ, "MP Potion: %d x\n", itens->mpPotion);
+	fprintf(itensARQ, "ATK Booster: %d x\n", itens->atkBooster);
+	fprintf(itensARQ, "DEF Booster: %d x\n", itens->defBooster);
+	fprintf(itensARQ, "AGI Booster: %d x\n", itens->agiBooster);
+	fclose(itensARQ);
+	
 
 }
 
 void viewInventario(Consumiveis *itens){
 	//correspondente ao Read do CRUD
-	FILE *itensARQ = fopen("inventario.txt", "r");
-    if(itensARQ == NULL){
-        printf("Erro ao abrir o arquivo.");
-    } else {
-        fscanf(itensARQ, "HP Potion: %d x\n", &itens->hpPotion);
-        fscanf(itensARQ, "MP Potion: %d x\n", &itens->mpPotion);
-        fscanf(itensARQ, "ATK Booster: %d x\n", &itens->atkBooster);
-        fscanf(itensARQ, "DEF Booster: %d x\n", &itens->defBooster);
-        fscanf(itensARQ, "AGI Booster: %d x\n", &itens->agiBooster);
-        
-        printf("Inventario:\n");
-        
-        printf("HP Potion: %d x\n", itens->hpPotion);
-        printf("MP Potion: %d x\n", itens->mpPotion);
-        printf("ATK Booster: %d x\n", itens->atkBooster);
-        printf("DEF Booster: %d x\n", itens->defBooster);
-        printf("AGI Booster: %d x\n", itens->agiBooster);
-        
-        fclose(itensARQ);
-    }
+	FILE *itensARQ = abrirArquivo("inventario.txt", "r");
+
+    fscanf(itensARQ, "HP Potion: %d x\n", &itens->hpPotion);
+    fscanf(itensARQ, "MP Potion: %d x\n", &itens->mpPotion);
+    fscanf(itensARQ, "ATK Booster: %d x\n", &itens->atkBooster);
+    fscanf(itensARQ, "DEF Booster: %d x\n", &itens->defBooster);
+    fscanf(itensARQ, "AGI Booster: %d x\n", &itens->agiBooster);
+    
+    printf("Inventario:\n");
+    
+    printf("HP Potion: %d x\n", itens->hpPotion);
+    printf("MP Potion: %d x\n", itens->mpPotion);
+    printf("ATK Booster: %d x\n", itens->atkBooster);
+    printf("DEF Booster: %d x\n", itens->defBooster);
+    printf("AGI Booster: %d x\n", itens->agiBooster);
+    
+    fclose(itensARQ);
+    
 }
 
-void descartarItem(Consumiveis *itens, Persona *MC){
+void descartarItem(Consumiveis *itens, Personagem *MC){
 	int descarte;
 	do{
 		printf("Qual item voce deseja descartar?");
@@ -186,15 +183,13 @@ void descartarItem(Consumiveis *itens, Persona *MC){
 		}	
 	}while(descarte != 6);
 	
-	FILE* itensARQ = fopen("inventario.txt", "w");
-	if(itensARQ == NULL){
-	    printf("Erro ao abrir o arquivo.");
-		} else {
-		    fprintf(itensARQ, "HP Potion: %d x\n", itens->hpPotion);
-		    fprintf(itensARQ, "MP Potion: %d x\n", itens->mpPotion);
-		    fprintf(itensARQ, "ATK Booster: %d x\n", itens->atkBooster);
-		    fprintf(itensARQ, "DEF Booster: %d x\n", itens->defBooster);
-		    fprintf(itensARQ, "AGI Booster: %d x\n", itens->agiBooster);
-		    fclose(itensARQ);
-		}
+	FILE* itensARQ = abrirArquivo("./dados/inventario.txt", "w");
+	
+	fprintf(itensARQ, "HP Potion: %d x\n", itens->hpPotion);
+	fprintf(itensARQ, "MP Potion: %d x\n", itens->mpPotion);
+	fprintf(itensARQ, "ATK Booster: %d x\n", itens->atkBooster);
+	fprintf(itensARQ, "DEF Booster: %d x\n", itens->defBooster);
+	fprintf(itensARQ, "AGI Booster: %d x\n", itens->agiBooster);
+
+	fclose(itensARQ);
 }
