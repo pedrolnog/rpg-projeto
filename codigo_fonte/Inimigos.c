@@ -5,11 +5,8 @@
 //Função que exibe os status do inimigo comum
 int ler_inimigo_comum(){ 
 	
-	ic = fopen("inic_status.txt", "r");
-	if(ic==NULL){
-		printf("ERRO!\n");
-		return 0;
-	} 
+	ic = abrirArquivo("./dados/inic_status.txt", "r");
+
 	//Entrada de Dados via arquivo ".txt"
 	fscanf(ic, "%s %d %d %d %d %d %s",&inic.nome, &inic.hp, &inic.agi, &inic.def,
 	 &inic.ata, &inic.mp, &inic.fraq);
@@ -28,11 +25,7 @@ int ler_inimigo_comum(){
 int ler_inimigo_elite(){
 	
 	
-	ie = fopen("inie_status.txt", "r");
-	if(ie == NULL){
-		printf("ERRO!");
-		return 0;
-	}
+	inimigoElite = abrirArquivo("./dados/inie_status.txt", "r");
 	
 	//Entrada de Dados via arquivo ".txt"
 	fscanf(ie, "%s %d %d %d %d %d %s %s\n",&inie.nome, &inie.hp, &inie.agi, &inie.def,
@@ -52,11 +45,7 @@ int ler_inimigo_elite(){
 //Função que exibe os status do inimigo Boss
 int ler_inimigo_boss(){
 	
-	ib = fopen("inib_status.txt", "r");
-	if(ib == NULL){
-		printf("O programa foi de F");
-		return 0;
-	}
+	ib = abrirArquivo("./dados/inib_status.txt", "r");
 	
 	//Entrada de Dados via arquivo ".txt"
 	fscanf(ib, "%s %d %d %d %d %d %s %s %d\n",&inib.nome, &inib.hp, &inib.agi, &inib.def,

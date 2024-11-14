@@ -1,8 +1,9 @@
-#include "JogosSalvos.h"
-#include "newGame.h"
-#include "Inimigos.h"
-#include "armas.h"
-#include "personagem.h"
+#include "codigo_fonte/savegame.h"
+#include "codigo_fonte/Inimigos.h"
+#include "codigo_fonte/armas.h"
+#include "codigo_fonte/batalha.h"
+#include "codigo_fonte/armaduras.h"
+#include "codigo_fonte/ManipArquivos.h"
 #include <stdio.h>
 #include <unistd.h> // p/ checar se arq. existe
 #include <stdlib.h>
@@ -10,7 +11,7 @@
 
 int main() {
     int escolha;
-    char *nomeArquivo = "./gameinfo/saveFiles.txt";
+    char *nomeArquivo = "./dados/saveFile.txt";
     
     setlocale(LC_ALL, "Portuguese"); // UTF-8 nï¿½o funciona. Mudar encoding. (https://cursos.alura.com.br/forum/topico-acentuacao-com-setlocale-nao-funciona-105663)
 
@@ -18,25 +19,21 @@ int main() {
     
     if (access(nomeArquivo, F_OK) == -1) {
         //https://www.learnc.net/c-tutorial/c-file-exists/
-        FILE *saveFiles = fopen("./gameinfo/saveFiles.txt", "w");
-        if (saveFiles == NULL) {
-            printf("Erro na criação do saveFiles.txt\n");
-        } else {
-            printf("Savefile criado\n");
-        }
-        fclose(saveFiles);
+        FILE *saveFile = abrirArquivo(nomeArquivo, "w");
+        fclose(saveFile);
     }
 
     do {
-        printf("\n Coração de Auryn \n");
-        printf("1. Novo Jogo\n2. Continuar\n3. Opções\n4. Sair\n");
+        printf("\n CoraÃ§Ã£o de Auryn \n");
+        printf("1. Novo Jogo\n2. Continuar\n3. OpÃ§Ãµes\n4. Sair\n");
         scanf("%d", &escolha);
 
         switch (escolha) {
             case 1:
-                personagem();
                 if (newGame() == 1) {
                     printf("Save criado!\n");
+                    inimigo_comum();
+                    ataque();
                 } else {
                     printf("Falha em criar save\n");
                 };
@@ -46,6 +43,9 @@ int main() {
                 inimigo_comum();
                 ataque();
                 break;
+            case 3:
+                criar();
+
         }
     } while (escolha != 4);
 

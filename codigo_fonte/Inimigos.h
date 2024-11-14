@@ -1,6 +1,8 @@
 #ifndef INIMIGOS_H
 #define INIMIGOS_H
+
 #define N 50
+
 struct inimigo_comum{
 	char nome[N];
 	int hp; //Health points
