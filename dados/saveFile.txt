@@ -1,1 +1,1 @@
-Nome:                                             Pedro Nivel: 1, Experiencia: 0, Ouro: 500, HP: 30, MP: 30, Ataque: 16, Defesa: 20, Agilidade: 10, Área: 1, Checkpoint: 0, Timestamp: 1731288937
+Área: 1, Checkpoint: 0, Timestamp: 1731600941

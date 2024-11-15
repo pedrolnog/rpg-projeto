@@ -6,15 +6,106 @@
 #include <time.h>
 
 // Parte de Coimbra
-void atributos(Save *save){
-    int pts = 10;
+int pts = 10;
+void personagem(Save *save){
+    int opt;
+    do{
+    	printf("O que deseja fazer com o personagem?\n");
+    	printf("1. Criar.\n");
+    	printf("2. Ler status.\n");
+    	printf("3. Distribuir pontos.\n");
+    	printf("4. Deletar personagem.\n");
+    	printf("5. Sair.\n");
+    	printf("Opcao: ");
+    	scanf("%d", &opt);
+    	getchar();
+    	switch(opt){
+    		case 1:
+    			criarPersonagem(save);
+    			break;
+    		case 2:
+    			statusPersonagem(save);
+    			break;
+    		case 3:
+    			upPersonagem(save, pts);
+    			break;
+    		case 4:
+    			deletePersonagem(save);
+    			break;
+    		case 5:
+    			printf("Saindo. . .\n");
+    			break;
+    		default:
+    			printf("Opcao invalida!\n");
+		}
+	}while(opt != 5);
+    
+}
+void criarPersonagem(Save *save){
+	//corresponde ao Creat do CRUD
+    save->personagem.lvl = 1;
+    save->personagem.exp = 0;
+    save->personagem.hp = 30;
+    save->personagem.agi = 10;
+    save->personagem.def = 10;
+    save->personagem.ata = 10;
+    save->personagem.mp = 20;
+    save->personagem.ouro = 500;
+    printf("Insira o nome do personagem: ");
+    fgets(save->personagem.nome, N, stdin);
+    
+    FILE *mcArquivo = abrirArquivo("dados/personagem.txt", "w");
+
+    fprintf(mcArquivo, "Nome: %s\n", save->personagem.nome);
+    fprintf(mcArquivo, "Nivel: %d\n", save->personagem.lvl);
+    fprintf(mcArquivo, "Experiencia: %d\n", save->personagem.exp);
+    fprintf(mcArquivo, "Ouro: %d\n", save->personagem.ouro);
+    fprintf(mcArquivo, "HP: %d\n", save->personagem.hp);
+    fprintf(mcArquivo, "MP: %d\n", save->personagem.mp);
+    fprintf(mcArquivo, "Ataque: %d\n", save->personagem.ata);
+    fprintf(mcArquivo, "Defesa: %d\n", save->personagem.def);
+    fprintf(mcArquivo, "Agilidade: %d\n", save->personagem.agi);
+    fclose(mcArquivo);
+}
+void statusPersonagem(Save *save){
+	//correspondente ao Read do CRUD
+	FILE *mcArquivo = abrirArquivo("./dados/personagem.txt", "r");
+
+    fscanf(mcArquivo, "Nome: %49[^\n]\n", save->personagem.nome);
+    fscanf(mcArquivo, "Nivel: %d\n", &save->personagem.lvl);
+    fscanf(mcArquivo, "Experiencia: %d\n", &save->personagem.exp);
+    fscanf(mcArquivo, "Ouro: %d\n", &save->personagem.ouro);
+    fscanf(mcArquivo, "HP: %d\n", &save->personagem.hp);
+    fscanf(mcArquivo, "MP: %d\n", &save->personagem.mp);
+    fscanf(mcArquivo, "Ataque: %d\n", &save->personagem.ata);
+    fscanf(mcArquivo, "Defesa: %d\n", &save->personagem.def);
+    fscanf(mcArquivo, "Agilidade: %d\n", &save->personagem.agi);
+    
+    printf("Status do personagem:\n");
+    
+    printf("Nome: %s\n", save->personagem.nome);
+    printf("Nivel: %d\n", save->personagem.lvl);
+    printf("Experiencia: %d\n", save->personagem.exp);
+    printf("Ouro: %d\n", save->personagem.ouro);
+    printf("HP: %d\n", save->personagem.hp);
+    printf("MP: %d\n", save->personagem.mp);
+    printf("Ataque: %d\n", save->personagem.ata);
+    printf("Defesa: %d\n", save->personagem.def);
+    printf("Agilidade: %d\n", save->personagem.agi);
+    
+    fclose(mcArquivo);
+
+}
+void upPersonagem(Save *save, int pts){
+	//refere-se ao Update de CRUD
+	printf("Distribua os pontos do personagem\n");
+	
     int option;
     do{
-        printf("Distribua os pontos do personagem\n\n");
         printf("\n1. HP: 1pt = +5HP\n2. MP: 1pt = +5HP\n3. ATK: 1pt = +2ATK\n4. DEF: 1pt = +2DEF\n5. AGI: 1pt = +2 AGI\n");
+        printf("Pontos disponiveis: %d\n", pts);
         printf("Qual atributo voce ira aprimorar?\n");
         scanf("%d", &option);
-        printf("Pontos sobrando: %d\n", pts);
         switch(option){
             case 1:
                 save->personagem.hp += 5;
@@ -37,37 +128,34 @@ void atributos(Save *save){
                 pts--;
                 break;
             default:
-                printf("Escolha um atributo valido!\n");
-            break;
-            }
-        }while(pts > 0);
-        fflush(stdin);
+                break;
+        }
+    } while (pts > 0);
+
+    FILE *mcArquivo = abrirArquivo("dados/personagem.txt", "w");
+
+    fprintf(mcArquivo, "Nome: %s\n", save->personagem.nome);
+    fprintf(mcArquivo, "Nivel: %d\n", save->personagem.lvl);
+    fprintf(mcArquivo, "Experiencia: %d\n", save->personagem.exp);
+    fprintf(mcArquivo, "Ouro: %d\n", save->personagem.ouro);
+    fprintf(mcArquivo, "HP: %d\n", save->personagem.hp);
+    fprintf(mcArquivo, "MP: %d\n", save->personagem.mp);
+    fprintf(mcArquivo, "Ataque: %d\n", save->personagem.ata);
+    fprintf(mcArquivo, "Defesa: %d\n", save->personagem.def);
+    fprintf(mcArquivo, "Agilidade: %d\n", save->personagem.agi);
+    
+    
+    fclose(mcArquivo);
+    
     }
 
-
-void personagem(Save *save){
-    save->personagem.lvl = 1;
-    save->personagem.exp = 0;
-    save->personagem.hp = 30;
-    save->personagem.agi = 10;
-    save->personagem.def = 10;
-    save->personagem.ata = 10;
-    save->personagem.mp = 20;
-    save->personagem.ouro = 500;
-
-    fflush(stdin);
-    printf("Insira o nome do personagem: ");
-    fgets(save->personagem.nome, N, stdin);
-    save->personagem.nome[strcspn(save->personagem.nome, "\n")] = 0;
-    printf("%s", save->personagem.nome);
-    atributos(save);
-
-    FILE *arquivo = abrirArquivo("./dados/saveFile.txt", "w");
-    
-    fprintf(arquivo, "Nome: %49s Nivel: %d, Experiencia: %d, Ouro: %d, HP: %d, MP: %d, Ataque: %d, Defesa: %d, Agilidade: %d, ", 
-    save->personagem.nome, save->personagem.lvl, save->personagem.exp, save->personagem.ouro, save->personagem.hp, save->personagem.mp, save->personagem.ata, save->personagem.def, save->personagem.agi);
-       
-    fclose(arquivo);
+void deletePersonagem(Save *save){
+	//corresponde ao Delete do CRUD
+	if(remove("./dados/personagem.txt") == 0){
+		printf("Personagem apagado com sucesso!");
+	}else{
+		printf("Erro ao deletar personagem.");
+	}
 }
 
 // Parte de Pedro

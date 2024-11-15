@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "savegame.h"
 #include "ManipArquivos.h"
+#include "inventario.h"
 #define N 50
 
 
@@ -21,13 +22,13 @@ void inventario(Personagem *MC){
     	getchar();
     	switch(opt){
     		case 1:
-    			comprarItem(&itens, &MC);
+    			comprarItem(&itens, MC);
     			break;
     		case 2:
     			viewInventario(&itens);
     			break;
     		case 3:
-    			descartarItem(&itens, &MC);
+    			descartarItem(&itens, MC);
     			break;
     		case 4:
     			printf("Saindo. . .\n");

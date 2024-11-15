@@ -4,7 +4,7 @@ CFLAGS = -Wall -g
 TARGET = jogo
 
 # Arquivos objeto
-OBJ = main.o savegame.o Inimigos.o batalha.o armas.o ManipArquivos.o
+OBJ = main.o codigo_fonte/savegame.o codigo_fonte/armaduras.o codigo_fonte/Inimigos.o codigo_fonte/batalha.o codigo_fonte/armas.o codigo_fonte/ManipArquivos.o codigo_fonte/inventario.o
 
 # Regra principal
 all: $(TARGET)
@@ -17,24 +17,26 @@ $(TARGET): $(OBJ)
 main.o: main.c
 	$(CC) $(CFLAGS) -c main.c
 
-savegame.o: savegame.c savegame.h
-	$(CC) $(CFLAGS) -c savegame.c
+codigo_fonte/armaduras.o: codigo_fonte/armaduras.c codigo_fonte/armaduras.h
+	$(CC) $(CFLAGS) -c codigo_fonte/armaduras.c
 
-inimigos.o: Inimigos.c Inimigos.h
-	$(CC) $(CFLAGS) -c Inimigos.c 
+codigo_fonte/armas.o: codigo_fonte/armas.c codigo_fonte/armas.h
+	$(CC) $(CFLAGS) -c codigo_fonte/armas.c
 
-armas.o: armas.c armas.h
-	$(CC) $(CFLAGS) -c armas.c
+codigo_fonte/batalha.o: codigo_fonte/batalha.c codigo_fonte/batalha.h
+	$(CC) $(CFLAGS) -c codigo_fonte/batalha.c
 
-batalha.o: batalha.c batalha.h
-	$(CC) $(CFLAGS) -c batalha.c
+codigo_fonte/Inimigos.o: codigo_fonte/Inimigos.c codigo_fonte/Inimigos.h
+	$(CC) $(CFLAGS) -c codigo_fonte/Inimigos.c
 
-ManipArquivos.o: ManipArquivos.c ManipArquivos.h
-	$(CC) $(CFLAGS) -c ManipArquivos.c
+codigo_fonte/inventario.o: codigo_fonte/inventario.c codigo_fonte/inventario.h
+	$(CC) $(CFLAGS) -c codigo_fonte/inventario.c
 
-armaduras.o: armaduras.c armaduras.h
-	$(CC) $(CFLAGS) -c armaduras.c
+codigo_fonte/ManipArquivos.o: codigo_fonte/ManipArquivos.c codigo_fonte/ManipArquivos.h
+	$(CC) $(CFLAGS) -c codigo_fonte/ManipArquivos.c
 
+codigo_fonte/savegame.o: codigo_fonte/savegame.c codigo_fonte/savegame.h
+	$(CC) $(CFLAGS) -c codigo_fonte/savegame.c
 
 # Limpar arquivos objeto e executável
 clean:

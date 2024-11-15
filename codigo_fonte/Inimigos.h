@@ -1,6 +1,8 @@
 #ifndef INIMIGOS_H
 #define INIMIGOS_H
 
+#include <stdio.h>
+
 #define N 50
 
 struct inimigo_comum{

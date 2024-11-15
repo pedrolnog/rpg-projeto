@@ -32,7 +32,7 @@ int main() {
             case 1:
                 if (newGame() == 1) {
                     printf("Save criado!\n");
-                    inimigo_comum();
+                    ler_inimigo_comum();
                     ataque();
                 } else {
                     printf("Falha em criar save\n");
@@ -40,7 +40,7 @@ int main() {
                 break;
             case 2:
                 jogosSalvos();
-                inimigo_comum();
+                ler_inimigo_comum();
                 ataque();
                 break;
             case 3:

@@ -23,6 +23,11 @@ typedef struct {
 	int checkpoint;
 } Save;
 
+void personagem(Save *save);
+void criarPersonagem(Save *save);
+void statusPersonagem(Save *save);
+void upPersonagem(Save *save, int pts);
+void deletePersonagem(Save *save);
 int newGame();
 void atributos(Save *save);
 void personagem(Save *save);
