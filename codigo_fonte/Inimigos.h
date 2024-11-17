@@ -39,13 +39,13 @@ struct inimigo_boss{
 	int regen; //Regeneração
 }typedef ini_boss;
 
-FILE *ic; //Ponteiro dos status do inimigo comum
-FILE *ie; //Ponteiro dos status do inimigo elite
-FILE *ib; //Ponteiro dos status do Boss
+FILE *inimigo_comum; //Ponteiro dos status do inimigo comum
+FILE *inimigo_elite; //Ponteiro dos status do inimigo elite
+FILE *inimigo_boss; //Ponteiro dos status do Boss
 
-ini_comum inic;
-ini_elite inie;
-ini_boss inib;
+ini_comum inimigoComum;
+ini_elite inimigoElite;
+ini_boss inimigoBoss;
 
 int ler_inimigo_comum(); //Apresenta os status do inimigo comum
 int ler_inimigo_elite(); //Apresenta os status do inimigo elite

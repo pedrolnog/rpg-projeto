@@ -54,32 +54,18 @@ void criarPersonagem(Save *save){
     printf("Insira o nome do personagem: ");
     fgets(save->personagem.nome, N, stdin);
     
-    FILE *mcArquivo = abrirArquivo("dados/personagem.txt", "w");
+    FILE *mcArquivo = abrirArquivo("dados/saveFile.txt", "w");
 
-    fprintf(mcArquivo, "Nome: %s\n", save->personagem.nome);
-    fprintf(mcArquivo, "Nivel: %d\n", save->personagem.lvl);
-    fprintf(mcArquivo, "Experiencia: %d\n", save->personagem.exp);
-    fprintf(mcArquivo, "Ouro: %d\n", save->personagem.ouro);
-    fprintf(mcArquivo, "HP: %d\n", save->personagem.hp);
-    fprintf(mcArquivo, "MP: %d\n", save->personagem.mp);
-    fprintf(mcArquivo, "Ataque: %d\n", save->personagem.ata);
-    fprintf(mcArquivo, "Defesa: %d\n", save->personagem.def);
-    fprintf(mcArquivo, "Agilidade: %d\n", save->personagem.agi);
+     fprintf(mcArquivo, "Nome: %s Nivel: %d Experiencia: %d Ouro: %d HP: %d MP: %d Ataque: %d Defesa: %d Agilidade: %d ", 
+    save->personagem.nome, save->personagem.lvl, save->personagem.exp, save->personagem.ouro, save->personagem.hp, save->personagem.mp, save->personagem.ata, save->personagem.def, save->personagem.agi);
+    
     fclose(mcArquivo);
 }
 void statusPersonagem(Save *save){
 	//correspondente ao Read do CRUD
-	FILE *mcArquivo = abrirArquivo("./dados/personagem.txt", "r");
+	FILE *mcArquivo = abrirArquivo("./dados/saveFile.txt", "r");
 
-    fscanf(mcArquivo, "Nome: %49[^\n]\n", save->personagem.nome);
-    fscanf(mcArquivo, "Nivel: %d\n", &save->personagem.lvl);
-    fscanf(mcArquivo, "Experiencia: %d\n", &save->personagem.exp);
-    fscanf(mcArquivo, "Ouro: %d\n", &save->personagem.ouro);
-    fscanf(mcArquivo, "HP: %d\n", &save->personagem.hp);
-    fscanf(mcArquivo, "MP: %d\n", &save->personagem.mp);
-    fscanf(mcArquivo, "Ataque: %d\n", &save->personagem.ata);
-    fscanf(mcArquivo, "Defesa: %d\n", &save->personagem.def);
-    fscanf(mcArquivo, "Agilidade: %d\n", &save->personagem.agi);
+    fscanf(mcArquivo, "Nome: %49s[^\n] Nivel: %d Experiencia: %d Ouro: %d HP: %d MP: %d Ataque: %d Defesa: %d Agilidade: %d ", save->personagem.nome    , &save->personagem.lvl, &save->personagem.exp, &save->personagem.ouro, &save->personagem.hp, &save->personagem.mp, &save->personagem.ata, &save->personagem.def, &save->personagem.agi);
     
     printf("Status do personagem:\n");
     
@@ -132,18 +118,14 @@ void upPersonagem(Save *save, int pts){
         }
     } while (pts > 0);
 
-    FILE *mcArquivo = abrirArquivo("dados/personagem.txt", "w");
+    FILE *mcArquivo = abrirArquivo("dados/saveFile.txt", "w");
 
-    fprintf(mcArquivo, "Nome: %s\n", save->personagem.nome);
-    fprintf(mcArquivo, "Nivel: %d\n", save->personagem.lvl);
-    fprintf(mcArquivo, "Experiencia: %d\n", save->personagem.exp);
-    fprintf(mcArquivo, "Ouro: %d\n", save->personagem.ouro);
-    fprintf(mcArquivo, "HP: %d\n", save->personagem.hp);
-    fprintf(mcArquivo, "MP: %d\n", save->personagem.mp);
-    fprintf(mcArquivo, "Ataque: %d\n", save->personagem.ata);
-    fprintf(mcArquivo, "Defesa: %d\n", save->personagem.def);
-    fprintf(mcArquivo, "Agilidade: %d\n", save->personagem.agi);
+     fprintf(mcArquivo, "Nome: %s Nivel: %d Experiencia: %d Ouro: %d HP: %d MP: %d Ataque: %d Defesa: %d Agilidade: %d ", 
+    save->personagem.nome, save->personagem.lvl, save->personagem.exp, save->personagem.ouro, save->personagem.hp, save->personagem.mp, save->personagem.ata, save->personagem.def, save->personagem.agi);
     
+    
+    fprintf(mcArquivo, "Nome: %s Nivel: %d Experiencia: %d Ouro: %d HP: %d MP: %d Ataque: %d Defesa: %d Agilidade: %d ", 
+    save->personagem.nome, save->personagem.lvl, save->personagem.exp, save->personagem.ouro, save->personagem.hp, save->personagem.mp, save->personagem.ata, save->personagem.def, save->personagem.agi);
     
     fclose(mcArquivo);
     
@@ -151,7 +133,7 @@ void upPersonagem(Save *save, int pts){
 
 void deletePersonagem(Save *save){
 	//corresponde ao Delete do CRUD
-	if(remove("./dados/personagem.txt") == 0){
+	if(remove("./dados/saveFile.txt") == 0){
 		printf("Personagem apagado com sucesso!");
 	}else{
 		printf("Erro ao deletar personagem.");
@@ -176,6 +158,8 @@ int newGame() {
 
     fprintf(saveFile, "Área: %d, Checkpoint: %d, Timestamp: %d\n", save.nivel, save.checkpoint, save.timestamp);
 
+    criarPersonagem(&save);
+
     fclose(saveFile);
     return 1;
 }
@@ -190,21 +174,9 @@ void jogosSalvos() {
 	
 	saveFile = abrirArquivo("./dados/saveFile.txt", "r");
 
-	fscanf(saveFile,"Nome: %s Nivel: %d, Experiencia: %d, Ouro: %d, HP: %d, MP: %d, Ataque: %d, Defesa: %d, Agilidade: %d, Área: %d, Checkpoint: %d, Timestamp: %d", &save.personagem.nome, &save.personagem.lvl, &save.personagem.exp, &save.personagem.ouro, &save.personagem.hp, &save.personagem.mp, &save.personagem.ata, &save.personagem.def, &save.personagem.agi, &save.nivel, &save.checkpoint, &save.timestamp);
+	fscanf(saveFile,"Nome: %s Nivel: %d Experiencia: %d Ouro: %d HP: %d MP: %d Ataque: %d Defesa: %d Agilidade: %d Área: %d Checkpoint: %d Timestamp: %d", &save.personagem.nome, &save.personagem.lvl, &save.personagem.exp, &save.personagem.ouro, &save.personagem.hp, &save.personagem.mp, &save.personagem.ata, &save.personagem.def, &save.personagem.agi, &save.nivel, &save.checkpoint, &save.timestamp);
 
 	printf("--------------------------------------------------\n");
 	printf("Nome: %s Nivel: %d, Experiencia: %d, Ouro: %d, HP: %d, MP: %d, Ataque: %d\nDefesa: %d, Agilidade: %d\nÁrea: %d, Checkpoint: %d, Timestamp: %d\n", save.personagem.nome, save.personagem.lvl, save.personagem.exp, save.personagem.ouro, save.personagem.hp, save.personagem.mp, save.personagem.ata, save.personagem.def, save.personagem.agi, save.nivel, save.checkpoint, (((int) time(NULL) - save.timestamp) / 3600));
 	printf("--------------------------------------------------\n");
-
-	/* Imprimindo todos os jogos salvos. Utiliza um loop que se mantém enquanto i é menor que a quantidade de itens em Saves.
-	printf("[ JOGO SALVOS ]\n");
-	for (i = 0; i < (sizeof(Saves) / sizeof(Saves[0])); i++) {
-		if (!(Saves[i].timestamp = -1)) {
-			printf("%d - Checkpoint %d\n", i+1, Saves[i].checkpoint);
-		} else {
-			printf("%d - ESPACO VAZIO\n", i+1);
-			continue;
-		}
-	}
-	*/
 }
