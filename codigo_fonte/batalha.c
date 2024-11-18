@@ -338,3 +338,123 @@ int ataqueCavaleiro(){
 	}
 
 }
+
+int ataquenoBoss(/*se tiver algum buuff ele vai vim como parametro*/){
+	int ataque;
+	srand(time(NULL));
+	
+	ataque = rand() % 20; 
+	
+	if(ataque == 1){ /* um erro critico nï¿½o pode ser afetado por buffs*/
+	sleep(2);
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("        VOCE TEVE UM ERRO CRITICO...             \n");
+	printf("        E deu 0 de dano                            ");
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+		upd_inimigo_boss();
+		return inimigoBoss.hp;
+	}
+	
+	else if(ataque/*+possivel buff*/ <= 10 && ataque >= 1/*agilidade do inimigo(nesse caso slime)*/){
+	sleep(2);
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("        O VAZIO DISTORCE O ESPACO E DESVIA...    \n");
+	printf("        E perdeu 0 pontos de vida                  ");
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+		upd_inimigo_boss();
+		return inimigoBoss.hp;
+	}
+	else if(ataque <= 15 && ataque > 10/*defesa do inimigo(nesse caso slime)*/){
+	//	danoDoAtaque = rand() % (6 - 1 + 1) + 1;
+	//	danoDoAtaque += rand() % (6 - 1 + 1) + 1;
+	sleep(2);
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("        O VAZIO PARECE NEM SENTIR SEU ATAQUE!!!  \n");
+	printf("         tirou %d pontos de vida do vazio      ", ataque);
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	if((inimigoBoss.hp - ataque ) <= 0){
+	printf("       O VAZIO FOI SUPERADO!!           ");
+	return 0;
+	}
+	else{
+	printf("        Ele ainda tem %d pontos de vida            ", inimigoBoss.hp = inimigoBoss.hp - ataque);
+	}
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+		
+		upd_inimigo_boss();
+		return inimigoBoss.hp;
+		
+	}
+	
+	else if(ataque > 15){
+	sleep(2);
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("        VOCE ACERTOU!!!                          \n");
+	printf("        E tirou %d pontos de vida do vazio      ", ataque);
+	printf("\n-----------------------------------------------\n");
+	if((inimigoBoss.hp - ataque ) <= 0){
+	printf("       O VAZIO FOI SUPERADO!!           ");
+	return 0;
+	}
+	else{
+	printf("        Ele ainda tem %d pontos de vida            ", inimigoBoss.hp = inimigoBoss.hp - ataque);
+	}
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+		
+		upd_inimigo_boss();
+		return inimigoBoss.hp;
+	}
+	}
+	else if(ataque == 20){ /*um acerto critico nï¿½o pode depender de buffs*/
+	//	danoDoAtaque = rand() % (6 - 1 + 1) + 1;
+	//	danoDoAtaque += rand() % (6 - 1 + 1) + 1;
+	//	danoDoAtaque *= 2; 
+	sleep(2);
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=\n");
+	printf("        VOCE ACERTOU UM ATAQUE CRITICO                 \n");
+	printf("        E tirou %d pontos de vida do vazio      ", 2 * ataque);
+	printf("\n-----------------------------------------------------\n");
+	if((inimigoBoss.hp - ataque ) <= 0){
+	printf("       O VAZIO FOI SUPERADO!!           ");
+	return 0;
+	}
+	else{
+	printf("        Ele ainda tem %d pontos de vida            ", inimigoBoss.hp = inimigoBoss.hp - ataque);
+	}
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+		upd_inimigo_boss();
+		return inimigoBoss.hp;
+	}
+}
+
+int ataqueBoss(){
+    int ataque;
+	int danoDoAtaque;
+	srand(time(NULL));
+	
+	ataque = rand() % 15;
+	
+	if(ataque < 1)/* um erro critico nï¿½o pode ser afetado por buffs*/{ 
+	sleep(2);
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("        O VAZIO TE ATACA...                      \n");
+	printf("        Ele errou o golpe                          ");
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	return heroi.hp;
+	}
+	
+	else{
+		ataque = ataque;
+		heroi.hp = heroi.hp - ataque;
+		sleep(2);
+		printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+		printf("        O VAZIO TE ATACA...                      \n");
+		printf("        Ele te tirou %d pontos de vida             ",ataque);
+		printf("\n-----------------------------------------------\n");
+		printf("        Voce ainda tem %d pontos de vida           ",heroi.hp);
+		printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+		return heroi.hp;
+	}
+
+}
+
