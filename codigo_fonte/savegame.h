@@ -32,4 +32,5 @@ void atributos(Save *save);
 void personagem(Save *save);
 void jogosSalvos();
 
+Personagem heroi;
 #endif
