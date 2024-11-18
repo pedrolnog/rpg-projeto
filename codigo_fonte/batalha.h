@@ -1,7 +1,8 @@
+#include <Windows.h>
 #ifndef BATALHA_H
 #define BATALHA_H
-
 #include "Inimigos.h"
+#include "savegame.h"
 
 typedef struct { 
     Personagem personagem;
@@ -26,6 +27,16 @@ typedef struct {
     int quantTurnos;
     int vencedor;
 } fight;
+
+int ataquenoSlime();
+int ataquenoCavaleiro();
+int bloquear(int danoDoSlime);
+int fugir(int agilidadeHeroi, int agilidadeInimigo);
+int usar_item();
+int ataqueSlime();
+int ataqueCavaleiro();
+
+#endif
 
 int ataque();
 int bloquear(int danoDoSlime);
