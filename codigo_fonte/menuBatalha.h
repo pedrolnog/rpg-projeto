@@ -6,6 +6,6 @@
 
 int batalhaSlime();
 int batalhaElite();
-
+int batalhaBoss();
 
 #endif
