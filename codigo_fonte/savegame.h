@@ -1,11 +1,10 @@
 #ifndef NEWGAME_H
 #define NEWGAME_H
 
-#define N 50
 #define MAXIMO_SAVES 1
 
 typedef struct{
-	char nome[N];
+	char nome[50];
 	int lvl;  //nivel
 	int exp;  //experiencia
 	int hp;   //Health Points

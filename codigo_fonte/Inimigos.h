@@ -3,39 +3,39 @@
 
 #include <stdio.h>
 
-#define N 50
+#define NI 50
 
 struct inimigo_comum{
-	char nome[N];
+	char nome[NI];
 	int hp; //Health points
 	int agi; //Agilidade
 	int def; //Defesa
 	int ata; //Ataque
 	int mp; //Mana points
-	char fraq[N]; //Fraqueza
+	char fraq[NI]; //Fraqueza
 }typedef ini_comum;
 
 struct inimigo_elite{
-	char nome[N]; 
+	char nome[NI]; 
 	int hp; 
 	int agi; 
 	int def; 
 	int ata;
 	int mp; 
-	char fraq[N];
-	char hab_esp[N]; //Habilidade especial
+	char fraq[NI];
+	char hab_esp[NI]; //Habilidade especial
 }typedef ini_elite;
 
 struct inimigo_boss{
-	char nome[N]; 
+	char nome[NI]; 
 	int hp; 
 	int agi;
 	int def;
 	int ata;
 	int mp; 
-	char hab_esp[N]; 
-	char fraq[N];
-	char imuni[N]; //Imunidade
+	char hab_esp[NI]; 
+	char fraq[NI];
+	char imuni[NI]; //Imunidade
 	int regen; //Regeneração
 }typedef ini_boss;
 

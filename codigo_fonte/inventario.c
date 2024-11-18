@@ -3,7 +3,7 @@
 #include "savegame.h"
 #include "ManipArquivos.h"
 #include "inventario.h"
-#define N 50
+#define NO 50
 
 
 void inventario(Personagem *MC){

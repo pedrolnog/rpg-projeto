@@ -52,7 +52,8 @@ void criarPersonagem(Save *save){
     save->personagem.mp = 20;
     save->personagem.ouro = 500;
     printf("Insira o nome do personagem: ");
-    fgets(save->personagem.nome, N, stdin);
+    fgets(save->personagem.nome, 50, stdin);
+    save->personagem.nome[strcspn(save->personagem.nome, "\n")] = 0;
     
     FILE *mcArquivo = abrirArquivo("dados/saveFile.txt", "w");
 
@@ -119,10 +120,6 @@ void upPersonagem(Save *save, int pts){
     } while (pts > 0);
 
     FILE *mcArquivo = abrirArquivo("dados/saveFile.txt", "w");
-
-     fprintf(mcArquivo, "Nome: %s Nivel: %d Experiencia: %d Ouro: %d HP: %d MP: %d Ataque: %d Defesa: %d Agilidade: %d ", 
-    save->personagem.nome, save->personagem.lvl, save->personagem.exp, save->personagem.ouro, save->personagem.hp, save->personagem.mp, save->personagem.ata, save->personagem.def, save->personagem.agi);
-    
     
     fprintf(mcArquivo, "Nome: %s Nivel: %d Experiencia: %d Ouro: %d HP: %d MP: %d Ataque: %d Defesa: %d Agilidade: %d ", 
     save->personagem.nome, save->personagem.lvl, save->personagem.exp, save->personagem.ouro, save->personagem.hp, save->personagem.mp, save->personagem.ata, save->personagem.def, save->personagem.agi);
@@ -146,19 +143,18 @@ int newGame() {
     FILE *saveFile;
     Save save;
     
-    saveFile = abrirArquivo("./dados/saveFile.txt", "a");
-    
     printf("[NOVO JOGO]\n");
         
-    save.nivel = 1;
+    save.nivel = 0;
     save.checkpoint = 0;
     save.timestamp = time(NULL);
 
-    personagem(&save);
-
-    fprintf(saveFile, "Área: %d, Checkpoint: %d, Timestamp: %d\n", save.nivel, save.checkpoint, save.timestamp);
-
     criarPersonagem(&save);
+    upPersonagem(&save, 4);
+
+    saveFile = abrirArquivo("./dados/saveFile.txt", "a");
+
+    fprintf(saveFile, "Area: %d Checkpoint: %d Timestamp: %d ", save.nivel, save.checkpoint, save.timestamp);
 
     fclose(saveFile);
     return 1;
@@ -174,9 +170,19 @@ void jogosSalvos() {
 	
 	saveFile = abrirArquivo("./dados/saveFile.txt", "r");
 
-	fscanf(saveFile,"Nome: %s Nivel: %d Experiencia: %d Ouro: %d HP: %d MP: %d Ataque: %d Defesa: %d Agilidade: %d Área: %d Checkpoint: %d Timestamp: %d", &save.personagem.nome, &save.personagem.lvl, &save.personagem.exp, &save.personagem.ouro, &save.personagem.hp, &save.personagem.mp, &save.personagem.ata, &save.personagem.def, &save.personagem.agi, &save.nivel, &save.checkpoint, &save.timestamp);
+	fscanf(saveFile,"Nome: %s Nivel: %d Experiencia: %d Ouro: %d HP: %d MP: %d Ataque: %d Defesa: %d Agilidade: %d Area: %d Checkpoint: %d Timestamp: %d", &save.personagem.nome, &save.personagem.lvl, &save.personagem.exp, &save.personagem.ouro, &save.personagem.hp, &save.personagem.mp, &save.personagem.ata, &save.personagem.def, &save.personagem.agi, &save.nivel, &save.checkpoint, &save.timestamp);
 
 	printf("--------------------------------------------------\n");
 	printf("Nome: %s Nivel: %d, Experiencia: %d, Ouro: %d, HP: %d, MP: %d, Ataque: %d\nDefesa: %d, Agilidade: %d\nÁrea: %d, Checkpoint: %d, Timestamp: %d\n", save.personagem.nome, save.personagem.lvl, save.personagem.exp, save.personagem.ouro, save.personagem.hp, save.personagem.mp, save.personagem.ata, save.personagem.def, save.personagem.agi, save.nivel, save.checkpoint, (((int) time(NULL) - save.timestamp) / 3600));
 	printf("--------------------------------------------------\n");
+}
+
+void salvarJogo(Save *save) {
+    FILE *saveFile = abrirArquivo(caminho_save, "w");
+
+    fprintf(saveFile, "Nome: %s Nivel: %d Experiencia: %d Ouro: %d HP: %d MP: %d Ataque: %d Defesa: %d Agilidade: %d Area: %d Checkpoint: %d Timestamp: %d\n\n\n",
+            save->personagem.nome, save->personagem.lvl, save->personagem.exp, save->personagem.ouro, save->personagem.hp, save->personagem.mp,
+            save->personagem.ata, save->personagem.def, save->personagem.agi, save->nivel, save->checkpoint, save->timestamp);
+    printf("Jogo salvo!");
+    fclose(saveFile);
 }

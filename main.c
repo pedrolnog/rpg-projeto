@@ -7,20 +7,24 @@
 #include "codigo_fonte/inventario.h"
 #include "codigo_fonte/iniciarJogo.h"
 #include <stdio.h>
+#include <windows.h>
 #include <unistd.h> // p/ checar se arq. existe
 #include <stdlib.h>
 #include <locale.h> // https://linguagemc.com.br/localizacao-de-programas-com-locale-h/#:~:text=A%20utiliza%C3%A7%C3%A3o%20do%20arquivo%20locale,localidade%20padr%C3%A3o%20do%20sistema%20operacional.
 
 int main() {
-    int escolha, escolha2;
+    int escolha = 0, escolha2 = 0;
     char *nomeArquivo = "./dados/saveFile.txt";
     
-    setlocale(LC_ALL, "Portuguese"); // UTF-8 nï¿½o funciona. Mudar encoding. (https://cursos.alura.com.br/forum/topico-acentuacao-com-setlocale-nao-funciona-105663)    
-    
+    setlocale(LC_ALL, ""); // UTF-8 n?o funciona. Mudar encoding. (https://cursos.alura.com.br/forum/topico-acentuacao-com-setlocale-nao-funciona-105663)    
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
+
     do {
-        printf("\n CoraÃ§Ã£o de Auryn \n");
-        printf("1. Novo Jogo\n2. Continuar\n3. OpÃ§Ãµes\n4. Sair\n");
+        printf("\n Coração de Auryn \n");
+        printf("1. Novo Jogo\n2. Continuar\n3. Opções\n4. Sair\n");
         scanf("%d", &escolha);
+        fflush(stdin);
 
         switch (escolha) {
             case 1:
@@ -29,7 +33,7 @@ int main() {
                 break;
             case 2:
                 if (access(nomeArquivo, F_OK) == -1) {
-                    printf("Jogo anterior nÃ£o encontrado.\n1. Criar novo jogo\n2. Sair\n");
+                    printf("Jogo anterior não encontrado.\n1. Criar novo jogo\n2. Sair\n");
                     scanf("%d", &escolha2);
                     if (escolha2 == 1) {
                         //https://www.learnc.net/c-tutorial/c-file-exists/
