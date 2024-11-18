@@ -3,6 +3,6 @@ Cavaleiro_Negro
 20
 20
 15
-10
+15
 Magia
 Corte_Fantasma

@@ -4,8 +4,7 @@
 #include "inimigos.h"
 #include <stdio.h>
 
-int batalhaSlime();
-int batalhaElite();
-
+int batalhaSlime(Save *save);
+int batalhaElite(Save *save);
 
 #endif

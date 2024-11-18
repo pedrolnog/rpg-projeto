@@ -7,7 +7,7 @@ TARGET = jogo
 OBJ_DIR = codigo_fonte
 
 # Arquivos objeto
-OBJ = main.o $(OBJ_DIR)/iniciarJogo.o $(OBJ_DIR)/savegame.o $(OBJ_DIR)/armaduras.o $(OBJ_DIR)/Inimigos.o $(OBJ_DIR)/batalha.o $(OBJ_DIR)/armas.o $(OBJ_DIR)/ManipArquivos.o $(OBJ_DIR)/inventario.o
+OBJ = main.o $(OBJ_DIR)/iniciarJogo.o $(OBJ_DIR)/savegame.o $(OBJ_DIR)/armaduras.o $(OBJ_DIR)/Inimigos.o $(OBJ_DIR)/batalha.o $(OBJ_DIR)/armas.o $(OBJ_DIR)/ManipArquivos.o $(OBJ_DIR)/inventario.o $(OBJ_DIR)/menuBatalha.o $(OBJ_DIR)/statusPersonagem.o
 
 # Regra principal
 all: $(TARGET)
@@ -43,6 +43,12 @@ $(OBJ_DIR)/savegame.o: codigo_fonte/savegame.c codigo_fonte/savegame.h
 
 $(OBJ_DIR)/iniciarJogo.o: codigo_fonte/iniciarJogo.c codigo_fonte/iniciarJogo.h
 	$(CC) $(CFLAGS) -c codigo_fonte/iniciarJogo.c -o $(OBJ_DIR)/iniciarJogo.o
+
+$(OBJ_DIR)/menuBatalha.o: codigo_fonte/menuBatalha.c codigo_fonte/menuBatalha.h
+	$(CC) $(CFLAGS) -c codigo_fonte/menuBatalha.c -o $(OBJ_DIR)/menuBatalha.o
+
+$(OBJ_DIR)/statusPersonagem.o: codigo_fonte/statusPersonagem.c codigo_fonte/statusPersonagem.h
+	$(CC) $(CFLAGS) -c codigo_fonte/statusPersonagem.c -o $(OBJ_DIR)/statusPersonagem.o
 
 # Limpar arquivos objeto e executável
 clean:

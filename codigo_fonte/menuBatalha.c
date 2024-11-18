@@ -3,9 +3,9 @@
 #include "menuBatalha.h"
 #include "savegame.h"
 #include "inimigos.h"
+#include "batalha.h"
 
-
-batalhaSlime(){
+int batalhaSlime(Save *save){
 int escolha;
 
 printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
@@ -28,7 +28,7 @@ printf("               #######              \n"
  
 ler_inimigo_comum();
 int quantidadePocao = 3;	
-heroi.hp = 30;
+
 
 sleep(2);
 do{
@@ -49,7 +49,7 @@ switch(escolha){
 				break;
 			}
 			printf("\n       VEZ DO SLIME DO VAZIO\n");
-			heroi.hp = ataqueSlime(heroi.hp);
+			save->personagem.hp = ataqueSlime(save);
 			break;
 			
 		case 2:
@@ -58,12 +58,12 @@ switch(escolha){
 			break;
 			
 		case 3:
-			usar_item();
-			ataqueSlime();
+			usar_item(save);
+			ataqueSlime(save);
 			break;
 			
 		case 4:
-			bloquear(inimigoComum.ata);
+			bloquear(save, inimigoComum.ata);
 			break; 
 	}
 	
@@ -72,7 +72,7 @@ switch(escolha){
 return 0;
 }
 
-batalhaElite(){
+int batalhaElite(Save *save){
 int escolha;
 
 printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
@@ -106,7 +106,7 @@ printf("                                                 \n"
  
 ler_inimigo_elite();
 int quantidadePocao = 3;	
-heroi.hp = 30;
+save->personagem.hp = 30;
 
 sleep(2);
 do{
@@ -127,7 +127,7 @@ switch(escolha){
 				break;
 			}
 			printf("\n       VEZ DO CAVALEIRO NEGRO\n");
-			heroi.hp = ataqueCavaleiro(heroi.hp);
+			save->personagem.hp = ataqueCavaleiro(save);
 			break;
 			
 		case 2:
@@ -136,12 +136,12 @@ switch(escolha){
 			break;
 			
 		case 3:
-			usar_item();
-			ataqueCavaleiro();
+			usar_item(save);
+			ataqueCavaleiro(save);
 			break;
 			
 		case 4:
-			bloquear(inimigoElite.ata);
+			bloquear(save, inimigoElite.ata);
 			break; 
 	}
 	

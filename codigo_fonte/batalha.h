@@ -1,6 +1,6 @@
-#include <Windows.h>
 #ifndef BATALHA_H
 #define BATALHA_H
+#include <Windows.h>
 #include "Inimigos.h"
 #include "savegame.h"
 
@@ -30,17 +30,10 @@ typedef struct {
 
 int ataquenoSlime();
 int ataquenoCavaleiro();
-int bloquear(int danoDoSlime);
+int bloquear(Save *save, int danoDoSlime);
 int fugir(int agilidadeHeroi, int agilidadeInimigo);
-int usar_item();
-int ataqueSlime();
-int ataqueCavaleiro();
-
-#endif
-
-int ataque();
-int bloquear(int danoDoSlime);
-int fugir(int agilidadeHeroi, int agilidadeInimigo);
-int usar_item();
+int usar_item(Save *save);
+int ataqueSlime(Save *save);
+int ataqueCavaleiro(Save *save);
 
 #endif

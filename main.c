@@ -48,7 +48,6 @@ int main() {
                 }
                 break;
             case 3:
-                criar();
                 break;
 
         }

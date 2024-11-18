@@ -1,14 +1,17 @@
 #include "savegame.h"
 #include "iniciarJogo.h"
 #include "ManipArquivos.h"
+#include "menuBatalha.h"
 #include <stdio.h>
 #include <locale.h>
 #include <windows.h>
 #include <stdlib.h>
 
-int iniciarJogo() {
-    FILE* saveFile = abrirArquivo("./dados/saveFile.txt", "r");
+// Função para iniciar jogo.
+void iniciarJogo() {
+    FILE* saveFile = abrirArquivo("./dados/saveFile.txt", "r"); // Abertura de arquivo.
     Save save;
+    int escolha = 1;
 
     // Configuração de locale e encoding
     setlocale(LC_ALL, "Portuguese_Brazil");
@@ -18,30 +21,40 @@ int iniciarJogo() {
     if (fscanf(saveFile, "Nome: %s Nivel: %d Experiencia: %d Ouro: %d HP: %d MP: %d Ataque: %d Defesa: %d Agilidade: %d Area: %d Checkpoint: %d Timestamp: %d",
             save.personagem.nome, &save.personagem.lvl, &save.personagem.exp, &save.personagem.ouro, &save.personagem.hp, &save.personagem.mp,
             &save.personagem.ata, &save.personagem.def, &save.personagem.agi, &save.nivel, &save.checkpoint, &save.timestamp) != 12) {
-        printf("Erro ao ler os dados do arquivo.\n");
+        printf("\nErro ao ler os dados do arquivo.\n");
         fclose(saveFile);
-        return 1;
     }
+
     fclose(saveFile);
 
-    switch (save.nivel) {
-        case 0:
-            nivelPreludio(&save);
-            break;
-        case 1:
-            nivelTutorial(&save);
-            break;
-    }
-    return 0;
+    // Passagem de níveis.
+    do {
+        switch (save.nivel) {
+            case 0:
+                nivelPreludio(&save);
+                break;
+            case 1:
+                nivelTutorial(&save);
+                break;
+        }
+
+        do {
+            printf("\n\nProsseguir para a próxima fase?\n\n");
+            printf("1. Continuar.\n2. Sair.\n");
+            scanf("%d", &escolha);
+            fflush(stdin); 
+        } while (escolha != 1 && escolha != 2); // Evita escolhas diferentes de 1 e 2.
+
+    } while (escolha != 2); // Evita voltar para o menu após cada nível.
 }
 
+// Função que contém o nível do prelúdio.
 void nivelPreludio(Save *save) {
     int escolha = 0;
 
     printf("\n");
     printf("\"Você estava em casa, uma noite como qualquer outra. A chuva tamborilava suavemente na janela, e o ar estava frio o suficiente para justificar o cobertor sobre suas pernas. Sobre a mesa à sua frente, um velho livro empoeirado reluzia à luz de uma lamparina. Era um presente misterioso que você encontrou em sua mochila esta manhã, com uma única palavra escrita na capa: 'Fantasia'.\"\n");
     do {
-        printf("\nESCOLHA: %d\n\n", escolha);
         printf("\n1. Abrir o livro e começar a ler.\n2. Ignorar o livro e olhar pela janela.\n");
         scanf("%d", &escolha);
         fflush(stdin);
@@ -73,15 +86,11 @@ void nivelPreludio(Save *save) {
 
     save->nivel++;
 
-    printf("Nome: %s Nivel: %d Experiencia: %d Ouro: %d HP: %d MP: %d Ataque: %d Defesa: %d Agilidade: %d Area: %d Checkpoint: %d Timestamp: %d\n\n\n",
-            save->personagem.nome, save->personagem.lvl, save->personagem.exp, save->personagem.ouro, save->personagem.hp, save->personagem.mp,
-            save->personagem.ata, save->personagem.def, save->personagem.agi, save->nivel, save->checkpoint, save->timestamp);
-
     salvarJogo(save);
     sleep(2);
-    return 0;
 }
 
+// Função que contém o nível do tutorial.
 void nivelTutorial(Save *save) {
     int escolha = 0;
 
@@ -123,6 +132,8 @@ void nivelTutorial(Save *save) {
 
     } while (escolha != 1 && escolha != 2);
 
+    sleep(3);
+
     escolha = 0;
 
     printf("\nMORLA: \n");
@@ -161,9 +172,26 @@ void nivelTutorial(Save *save) {
 
     //BATALHA
 
+    printf("\n\"De repente, a névoa escurece e uma sombra sinistra surge à sua frente. É uma criatura feita de puro Nada, ameaçadora e instável.\"\n");
+
+    sleep(5);
+
+    printf("\nMORLA:\n");
+    printf("Este é um Fragmento do Nada. Não tema. Escolha sua ação com sabedoria para derrotá-lo.\n");
+
+    // Iniciando batalha contra o primeiro inimigo.
+    batalhaSlime(save);
+
     sleep(2);
     printf("Você se cansa um pouco...\n");
     sleep(5);
+
+    printf("A névoa ainda se mantém, e outra sombra, maior e mais intimidadora surge à sua frente...\nUma figura grande e imponente surge diante de você.");
+
+    // Batalha contra a segunda criatura...
+    batalhaElite(save);
+
+    sleep(2);
 
     printf("\nMORLA:\n");
     printf("Muito bem, jovem. Você passou nos primeiros testes. Fantasia precisa de um herói como você. Lembre-se, cada escolha molda o destino deste mundo.\n");
@@ -171,10 +199,6 @@ void nivelTutorial(Save *save) {
     printf("\"Um portal brilhante se abre diante de você.\nVocê o atravessa, sendo transportado para outro local...\"\n\n");
 
     save->nivel++;
-
-    printf("Nome: %s Nivel: %d Experiencia: %d Ouro: %d HP: %d MP: %d Ataque: %d Defesa: %d Agilidade: %d Area: %d Checkpoint: %d Timestamp: %d\n\n\n",
-            save->personagem.nome, save->personagem.lvl, save->personagem.exp, save->personagem.ouro, save->personagem.hp, save->personagem.mp,
-            save->personagem.ata, save->personagem.def, save->personagem.agi, save->nivel, save->checkpoint, save->timestamp);
 
     salvarJogo(save);
     sleep(2);

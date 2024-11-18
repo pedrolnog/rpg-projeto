@@ -1,8 +1,7 @@
-Slime
+Slime_do_vazio
 30
-10
-10
+5
+6
 5
 15
 Fogo
- 

@@ -1,7 +1,14 @@
-#ifndef NEWGAME_H
-#define NEWGAME_H
+#ifndef SAVEGAME_H
+#define SAVEGAME_H
 
 #define MAXIMO_SAVES 1
+
+typedef enum{
+	SAUDAVEL,
+	ENVENENADO,
+	MORRENDO,
+	MORTO
+}Status; 
 
 typedef struct{
 	char nome[50];
@@ -13,6 +20,7 @@ typedef struct{
 	int ata;  //Ataque
 	int mp;   //Mana Points
 	int ouro; //dinheiro
+	Status status; // Status do personagem
 } Personagem;
 
 typedef struct {
