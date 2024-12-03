@@ -5,13 +5,12 @@
 #include "savegame.h"
 #include "menuBatalha.h"
 
-int ataquenoSlime(/*se tiver algum buuff ele vai vim como parametro*/){
+int ataquenoSlime(Save *save, ini_comum inimigoComum){ // tirar upd // Juntar com a arma // Fazer o dano funcional
 	int ataque;
 	srand(time(NULL));
 	
-	ataque = rand() % 20; 
-	
-	if(ataque < 3){ /* um erro critico nï¿½o pode ser afetado por buffs*/
+	ataque = rand() % (20 - 1 + 1) + 1; 
+	if(ataque == 1){ /* um erro critico nÃ¯Â¿Â½o pode ser afetado por buffs*/
 	sleep(2);
 	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
 	printf("        VOCE TEVE UM ERRO CRITICO...             \n");
@@ -21,7 +20,7 @@ int ataquenoSlime(/*se tiver algum buuff ele vai vim como parametro*/){
 		return inimigoComum.hp;
 	}
 	
-	else if(ataque/*+possivel buff*/ <= 5 && ataque >= 3/*agilidade do inimigo(nesse caso slime)*/){
+	else if(ataque + save->personagem.ata <= inimigoComum.agi){/*agilidade do inimigo(nesse caso slime)*/
 	sleep(2);
 	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
 	printf("        O SLIME DO VAZIO DESVIOU...              \n");
@@ -30,9 +29,7 @@ int ataquenoSlime(/*se tiver algum buuff ele vai vim como parametro*/){
 		upd_inimigo_comum();
 		return inimigoComum.hp;
 	}
-	else if(ataque <= 6/*defesa do inimigo(nesse caso slime)*/){
-	//	danoDoAtaque = rand() % (6 - 1 + 1) + 1;
-	//	danoDoAtaque += rand() % (6 - 1 + 1) + 1;
+	else if(ataque + save->personagem.ata <= inimigoComum.def){/*defesa do inimigo(nesse caso slime)*/
 	sleep(2);
 	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
 	printf("        O SLIME DO  VAZIO DEFENDEU!!!            \n");
@@ -52,7 +49,7 @@ int ataquenoSlime(/*se tiver algum buuff ele vai vim como parametro*/){
 		
 	}
 	
-	else if(ataque > 6 && ataque < 10){
+	else if(ataque + save->personagem.ata > inimigoComum.def){
 	sleep(2);
 	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
 	printf("        VOCE ACERTOU!!!                          \n");
@@ -71,30 +68,7 @@ int ataquenoSlime(/*se tiver algum buuff ele vai vim como parametro*/){
 		return inimigoComum.hp;
 	}
 	
-	else if(ataque/*+possivel buff*/ >= 10){
-	//	danoDoAtaque = rand() % (6 - 1 + 1) + 1;
-	//	danoDoAtaque += rand() % (6 - 1 + 1) + 1;
-	sleep(2);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	printf("        VOCE ACERTOU!!!                          \n");
-	printf("        E tirou %d pontos de vida do slime      ", ataque);
-	printf("\n-----------------------------------------------\n");
-	if((inimigoComum.hp - ataque ) <= 0){
-	printf("       O SLIME DO VAZIO FOI NOCAUTEADO!!           ");
-	return 0;
-	}
-	else{
-	printf("        Ele ainda tem %d pontos de vida            ", inimigoComum.hp = inimigoComum.hp - ataque);
-	}
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-		
-		upd_inimigo_comum();
-		return inimigoComum.hp;
-	}
-	else if(ataque == 20){ /*um acerto critico nï¿½o pode depender de buffs*/
-	//	danoDoAtaque = rand() % (6 - 1 + 1) + 1;
-	//	danoDoAtaque += rand() % (6 - 1 + 1) + 1;
-	//	danoDoAtaque *= 2; 
+	else if(ataque == 20){ /*um acerto critico nÃ¯Â¿Â½o pode depender de buffs*/
 	sleep(2);
 	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=\n");
 	printf("        VOCE ACERTOU UM ATAQUE CRITICO                 \n");
@@ -113,55 +87,87 @@ int ataquenoSlime(/*se tiver algum buuff ele vai vim como parametro*/){
 	}
 }
 
-int ataqueSlime(Save *save){
+int ataqueSlime(Save *heroi){ // TUDO OK!
     int ataque;
 	int danoDoAtaque;
 	srand(time(NULL));
+	danoDoAtaque = rand() % (8 - 4 + 1) + 4;
+	ataque = rand() % (20 - 1 + 1) + 1; 
 	
-	ataque = rand() % 10;
-	
-	if(ataque < 1)/* um erro critico nï¿½o pode ser afetado por buffs*/{ 
+	if(ataque == 1)/* um erro critico nÃ¯Â¿Â½o pode ser afetado por buffs*/{ 
 	sleep(2);
 	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
 	printf("        O SLIME DO VAZIO TE ATACA...             \n");
 	printf("        Ele errou o golpe                          ");
 	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	return save->personagem.hp;
+	return heroi->personagem.hp;
 	}
 	
-	else{
-		ataque = ataque;
-		save->personagem.hp = save->personagem.hp - ataque;
-		sleep(2);
-		printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-		printf("        O SLIME DO VAZIO TE ATACA...             \n");
-		printf("        Ele te tirou %d pontos de vida             ",ataque);
-		printf("\n-----------------------------------------------\n");
-		printf("        Voce ainda tem %d pontos de vida           ",save->personagem.hp);
-		printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-		return save->personagem.hp;
+	else if(ataque <= (heroi->personagem.agi)/2){
+	sleep(2);
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("        O SLIME DO VAZIO TE ATACA...             \n");
+	printf("        voce desvia do golpe                       ");
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	return heroi->personagem.hp;
 	}
 
+	else if(ataque <= heroi->personagem.def){
+	sleep(2);
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
+	printf("        O SLIME DO VAZIO TE ATACA...             \n");
+	printf("O ataque foi fraco, mas voce ainda perde %d pontos de vida",danoDoAtaque - 1);
+	printf("\n--------------------------------------------------------\n");
+	heroi->personagem.hp = heroi->personagem.hp - danoDoAtaque  + 1;
+	printf("        Voce ainda tem %d pontos de vida           ",heroi->personagem.hp);
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
+	
+	return heroi->personagem.hp;
+	}
+
+	else if(ataque > heroi->personagem.def){
+	sleep(2);
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("        O SLIME DO VAZIO TE ATACA...             \n");
+	printf("        Ele te tirou %d pontos de vida             ",danoDoAtaque);
+	printf("\n-----------------------------------------------\n");
+	heroi->personagem.hp = heroi->personagem.hp - danoDoAtaque;
+	printf("        Voce ainda tem %d pontos de vida           ",heroi->personagem.hp);
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	return heroi->personagem.hp;
+	}
 }
 
-int bloquear(Save *save, int danoDoSlime/*+bonus de buffs*/){ /*garante uma defesa*/
+int bloquear(Save *heroi, ini_comum inimigoComum){ /*garante uma defesa*/
 	int ataque;
 	
-	ataque = rand() % 5;
-	
-	ataque = ataque;
-	save->personagem.hp = save->personagem.hp - ataque;
+	ataque = rand() % 3;
+	heroi->personagem.hp = heroi->personagem.hp - ataque;
 	sleep(2);
 	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
 	printf("       VOCE DEFENDEU!!!                          \n");
 	printf("       E conseguiu diminuir o dano para %d         ", ataque);
 	printf("\n-----------------------------------------------\n");
-	printf("        Voce ainda tem %d pontos de vida\n         ",save->personagem.hp);
+	printf("        Voce ainda tem %d pontos de vida\n         ",heroi->personagem.hp);
 	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	return save->personagem.hp;
+	return heroi->personagem.hp;
+}
+int bloquearElite(Save *heroi, ini_comum inimigoElite){ /*garante uma defesa*/
+	int ataque;
+	
+	ataque = rand() % 8;
+	heroi->personagem.hp = heroi->personagem.hp - ataque;
+	sleep(2);
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("       VOCE DEFENDEU!!!                          \n");
+	printf("       E conseguiu diminuir o dano para %d         ", ataque);
+	printf("\n-----------------------------------------------\n");
+	printf("        Voce ainda tem %d pontos de vida\n         ",heroi->personagem.hp);
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	return heroi->personagem.hp;
 }
 
-int fugir(int agilidadeHeroi, int agilidadeInimigo){ //no caso do tutorial nï¿½o vai ter como escapar entï¿½o da pra so colocar uma mensagem dino combate.
+int fugir(){ //Colocar .
 	sleep(2);
 	printf("\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n");
 	printf("           Voce nao consegue escapar!            ");
@@ -190,14 +196,12 @@ int usar_item(Save *save){
 }
 
 
-int ataquenoCavaleiro(/*se tiver algum buuff ele vai vim como parametro*/){
+int ataquenoCavaleiro(Save *save, ini_comum inimigoComum){
 	int ataque;
-	int danoDoAtaque;
 	srand(time(NULL));
 	
-	ataque = rand() % 20; 
-	
-	if(ataque < 3){ /* um erro critico nï¿½o pode ser afetado por buffs*/
+	ataque = rand() % (20 - 1 + 1) + 1; 
+	if(ataque == 1){ /* um erro critico nÃ¯Â¿Â½o pode ser afetado por buffs*/
 	sleep(2);
 	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
 	printf("        VOCE TEVE UM ERRO CRITICO...             \n");
@@ -207,44 +211,40 @@ int ataquenoCavaleiro(/*se tiver algum buuff ele vai vim como parametro*/){
 		return inimigoElite.hp;
 	}
 	
-	else if(ataque/*+possivel buff*/ <= 5 && ataque >= 3/*agilidade do inimigo(nesse caso o Cavaleiro)*/){
+	else if(ataque + save->personagem.ata <= inimigoElite.agi){/*agilidade do inimigo(nesse caso slime)*/
 	sleep(2);
 	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	printf("       O CAVALEIRO NEGRO DESVIOU                 \n");
-	printf("       E perdeu 0 pontos de vida                  ");
+	printf("        O CAVALEIRO NEGRO DESVIOU                \n");
+	printf("        E perdeu 0 pontos de vida                  ");
 	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
 		upd_inimigo_elite();
 		return inimigoElite.hp;
 	}
-	else if(ataque <= 6/*defesa do inimigo(nesse caso cavaleiro)*/){
-	//	danoDoAtaque = rand() % (6 - 1 + 1) + 1;
-	//	danoDoAtaque += rand() % (6 - 1 + 1) + 1;
+	else if(ataque + save->personagem.ata <= inimigoElite.def){/*defesa do inimigo(nesse caso slime)*/
 	sleep(2);
 	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
 	printf("        O CAVALEIRO NEGRO DEFENDEU!!!            \n");
 	printf("        Mas perdeu %d pontos de vida               ", ataque);
 	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
 	if((inimigoElite.hp - ataque ) <= 0){
-	printf("       O CAVALEIRO NEGRO FOI NOCAUTEADO!!           ");
+	printf("        O CAVALEIRO NEGRO FOI NOCAUTEADO!!         ");
 	return 0;
 	}
 	else{
 	printf("        Ele ainda tem %d pontos de vida            ", inimigoElite.hp = inimigoElite.hp - ataque);
 	}
 	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	
 		
 		upd_inimigo_elite();
-		return inimigoComum.hp;
+		return inimigoElite.hp;
 		
 	}
 	
-	else if(ataque > 6 && ataque < 10){
-	danoDoAtaque = ataque;
+	else if(ataque + save->personagem.ata > inimigoElite.def){
 	sleep(2);
 	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
 	printf("        VOCE ACERTOU!!!                          \n");
-	printf("        E tirou %d pontos de vida do cavaleiro     ", ataque);
+	printf("    E tirou %d pontos de vida do Cavaleiro Negro   ", ataque);
 	printf("\n-----------------------------------------------\n");
 	if((inimigoElite.hp - ataque ) <= 0){
 	printf("       O CAVALEIRO NEGRO FOI NOCAUTEADO!!          ");
@@ -259,37 +259,14 @@ int ataquenoCavaleiro(/*se tiver algum buuff ele vai vim como parametro*/){
 		return inimigoElite.hp;
 	}
 	
-	else if(ataque/*+possivel buff*/ >= 10){
-	//	danoDoAtaque = rand() % (6 - 1 + 1) + 1;
-	//	danoDoAtaque += rand() % (6 - 1 + 1) + 1;
-	sleep(2);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	printf("        VOCE ACERTOU!!!                          \n");
-	printf("        E tirou %d pontos de vida do cavaleiro     ", ataque);
-	printf("\n-----------------------------------------------\n");
-	if((inimigoElite.hp - ataque ) <= 0){
-	printf("       O CAVALEIRO NEGRO FOI NOCAUTEADO!!          ");
-	return 0;
-	}
-	else{
-	printf("        Ele ainda tem %d pontos de vida            ", inimigoElite.hp = inimigoElite.hp - ataque);
-	}
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-		
-		upd_inimigo_elite();
-		return inimigoElite.hp;
-	}
-	else if(ataque == 20){ /*um acerto critico nï¿½o pode depender de buffs*/
-	//	danoDoAtaque = rand() % (6 - 1 + 1) + 1;
-	//	danoDoAtaque += rand() % (6 - 1 + 1) + 1;
-	//	danoDoAtaque *= 2; 
+	else if(ataque == 20){ /*um acerto critico nÃ¯Â¿Â½o pode depender de buffs*/
 	sleep(2);
 	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=\n");
 	printf("        VOCE ACERTOU UM ATAQUE CRITICO                 \n");
-	printf("        E tirou %d pontos de vida do cavaleiro negro     ", 2 * ataque);
+	printf("        E tirou %d pontos de vida do Cavaleiro Negro     ", 2 * ataque);
 	printf("\n-----------------------------------------------------\n");
 	if((inimigoElite.hp - ataque ) <= 0){
-	printf("       O CAVALEIRO NEGRO FOI NOCAUTEADO!!          ");
+	printf("       O SLIME DO VAZIO FOI NOCAUTEADO!!           ");
 	return 0;
 	}
 	else{
@@ -305,10 +282,10 @@ int ataqueCavaleiro(Save *save){
     int ataque;
 	int danoDoAtaque;
 	srand(time(NULL));
+	danoDoAtaque = rand() % (12 - 4 + 1) + 4;
+	ataque = rand() % (20 - 1 + 1) + 1; 
 	
-	ataque = rand() % 15;
-	
-	if(ataque < 1)/* um erro critico nï¿½o pode ser afetado por buffs*/{ 
+	if(ataque == 1)/* um erro critico nÃ¯Â¿Â½o pode ser afetado por buffs*/{ 
 	sleep(2);
 	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
 	printf("        O CAVALEIRO NEGRO TE ATACA...            \n");
@@ -316,25 +293,39 @@ int ataqueCavaleiro(Save *save){
 	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
 	return save->personagem.hp;
 	}
-	else if(ataque == 15){
-		printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-		printf("        O CAVALEIRO NEGRO TE ATACA...            \n");
-		printf("        ELE USA O CORTE FANTASMA!!!!             \n");
-		printf("\n-----------------------------------------------\n");
-		printf("        Voce ainda tem %d pontos de vida           ",save->personagem.hp);
-		printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	
+	else if(ataque <= (save->personagem.agi)/2){
+	sleep(2);
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("        O CAVALEIRO NEGRO TE ATACA...            \n");
+	printf("        voce desvia do golpe                       ");
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	return save->personagem.hp;
 	}
-	else{
-		ataque = ataque;
-		save->personagem.hp = save->personagem.hp - ataque;
-		sleep(2);
-		printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-		printf("        O CAVALEIRO NEGRO TE ATACA...            \n");
-		printf("        Ele te tirou %d pontos de vida             ",ataque);
-		printf("\n-----------------------------------------------\n");
-		printf("        Voce ainda tem %d pontos de vida           ",save->personagem.hp);
-		printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-		return save->personagem.hp;
+
+	else if(ataque <= save->personagem.def){
+	sleep(2);
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=\n");
+	printf("        O CAVALEIRO NEGRO TE ATACA...            \n");
+	printf("O ataque foi fraco, mas voce ainda perde %d pontos de vida",danoDoAtaque - 2);
+	printf("\n---------------------------------------------------------\n");
+	save->personagem.hp = save->personagem.hp - danoDoAtaque  + 2;
+	printf("        Voce ainda tem %d pontos de vida           ",save->personagem.hp);
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	
+	return save->personagem.hp;
+	}
+
+	else if(ataque > save->personagem.def){
+	sleep(2);
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("        O CAVALEIRO NEGRO TE ATACA...            \n");
+	printf("        Ele te tirou %d pontos de vida             ",danoDoAtaque);
+	printf("\n-----------------------------------------------\n");
+	save->personagem.hp = save->personagem.hp - danoDoAtaque;
+	printf("        Voce ainda tem %d pontos de vida           ",save->personagem.hp);
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	return save->personagem.hp;
 	}
 
 }
