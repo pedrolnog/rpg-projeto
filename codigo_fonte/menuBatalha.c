@@ -4,7 +4,6 @@
 #include "savegame.h"
 #include "inimigos.h"
 #include "batalha.h"
-
 int batalhaSlime(Save *save){
 int escolha;
 
@@ -41,29 +40,30 @@ printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
 scanf("%d", &escolha);
 switch(escolha){
 		case 1:
-			inimigoComum.hp = ataquenoSlime();
+			inimigoComum.hp = ataquenoSlime(save, inimigoComum);
 			sleep(2);
 			if(inimigoComum.hp == 0){
-				printf("\n             !!!VOCE GANHOU!!!");
+				printf("\n             !!!VOCE GANHOU 30XP!!!");
 				printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
 				break;
 			}
 			printf("\n       VEZ DO SLIME DO VAZIO\n");
-			save->personagem.hp = ataqueSlime(save);
+			save->personagem.hp = ataqueSlime(save, inimigoComum);
 			break;
 			
 		case 2:
 			sleep(2);
-			fugir(10, inimigoComum.agi);
+			fugir(save, inimigoComum);
 			break;
 			
 		case 3:
 			usar_item(save);
-			ataqueSlime(save);
+			ataqueSlime(save, inimigoComum);
 			break;
 			
 		case 4:
-			bloquear(save, inimigoComum.ata);
+			printf("||||%p||||", save);
+			bloquear(save, inimigoComum);
 			break; 
 	}
 	
@@ -119,7 +119,7 @@ printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
 scanf("%d", &escolha);
 switch(escolha){
 		case 1:
-			inimigoElite.hp = ataquenoCavaleiro();
+			inimigoElite.hp = ataquenoCavaleiro(save, inimigoComum);
 			sleep(2);
 			if(inimigoElite.hp == 0){
 				printf("\n             !!!VOCE GANHOU!!!");
@@ -129,10 +129,9 @@ switch(escolha){
 			printf("\n       VEZ DO CAVALEIRO NEGRO\n");
 			save->personagem.hp = ataqueCavaleiro(save);
 			break;
-			
 		case 2:
 			sleep(2);
-			fugir(10, inimigoElite.agi);
+			fugir();
 			break;
 			
 		case 3:
@@ -141,7 +140,7 @@ switch(escolha){
 			break;
 			
 		case 4:
-			bloquear(save, inimigoElite.ata);
+			bloquearElite(save, inimigoElite);
 			break; 
 	}
 	
