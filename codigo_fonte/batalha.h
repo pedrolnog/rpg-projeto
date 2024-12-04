@@ -28,12 +28,13 @@ typedef struct {
     int vencedor;
 } fight;
 
-int ataquenoSlime();
-int ataquenoCavaleiro();
-int bloquear(Save *save, int danoDoSlime);
-int fugir(int agilidadeHeroi, int agilidadeInimigo);
+int ataquenoSlime(Save *save, ini_comum inimigoComum);
+int ataquenoCavaleiro(Save *save, ini_comum inimigoComum);
+int bloquear(Save *save, ini_comum inimigoComum);
+int bloquearElite(Save *save, ini_elite inimigoElite);
+int fugir();
 int usar_item(Save *save);
-int ataqueSlime(Save *save);
+int ataqueSlime(Save *save, ini_comum inimigoComum);
 int ataqueCavaleiro(Save *save);
 
 #endif

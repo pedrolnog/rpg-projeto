@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include "savegame.h"
 #include "ManipArquivos.h"
@@ -33,7 +34,7 @@ void inventario(Personagem *MC){
     			descartarItem(&itens, MC);
     			break;
     		case 4:
-    			obterArma(&arma);
+    			obterArma(&arma, &itens);
     		case 5:
     			printf("Saindo. . .\n");
     			break;
@@ -199,7 +200,7 @@ void descartarItem(Consumiveis *itens, Personagem *MC){
 	fclose(itensARQ);
 }
 
-void obterArma(Armas *arma){
+void obterArma(Arma *armas, Consumiveis *itens){
 	/*Aqui esta a função de obter arma
 	talvez seja interessante colocar para as armas escalarem com atrinbutos
 	espada com força, arco com agilidade e cajado com mp.
@@ -215,19 +216,27 @@ void obterArma(Armas *arma){
 		switch(opcao){
 			case 1:
 				criar_espada();
-				espadas();
 				printf("Espada adicionada ao inventario!\n");
+				strcpy(itens->armas[0].nome, "Espada do Caos");				
 				FILE* itensARQ = abrirArquivo("./dados/inventario.txt", "a");
-				fprintf(itensARQ, "%s", espada->nome)
+				fprintf(itensARQ, "%s 1x", itens->armas[0].nome);
 				fclose(itensARQ);
 				break;
 			case 2:
 				criar_arco();
 				printf("Arco adicionado ao inventario!\n");
+				strcpy(itens->armas[1].nome, "Arco da Lua negra");				
+				FILE* itensARQ = abrirArquivo("./dados/inventario.txt", "a");
+				fprintf(itensARQ, "%s 1x", itens->armas[1].nome);
+				fclose(itensARQ);
 				break;
 			case 3:
 				criar_cajado();
-				printf("Cajado adicionado ao inventario!\n")
+				printf("Cajado adicionado ao inventario!\n");
+				strcpy(itens->armas[2].nome, "Cajado do Sabio");				
+				FILE* itensARQ = abrirArquivo("./dados/inventario.txt", "a");
+				fprintf(itensARQ, "%s 1x", itens->armas[2].nome);
+				fclose(itensARQ);
 				break;
 			case 0:
 				printf("Saindo. . .");
@@ -236,6 +245,6 @@ void obterArma(Armas *arma){
 				printf("Arma invalida!");
 				break;
 		}		
-	}while(opcao != 0 && opcao != 1 && opcao != 2 && opcao != 3);
+	}while(opcao != 0);
 
 }

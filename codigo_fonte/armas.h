@@ -1,11 +1,12 @@
 #ifndef ARMAS_H
 #define ARMAS_H
-#define N 50
+
 #define T 25
 #define H 25
 #define E 25
+
 typedef struct Armas{
-	char nome[N]; // nome da espada
+	char nome[50]; // nome da espada
 	char tipoDano[T]; 
 	int danoMin;
 	int danoMax;

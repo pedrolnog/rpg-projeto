@@ -6,5 +6,6 @@
 #define caminho_save "./dados/saveFile.txt"
 
 FILE* abrirArquivo(const char* caminho, const char* modo);
+void criarPasta();
 
 #endif
