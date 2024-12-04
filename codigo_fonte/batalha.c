@@ -1,331 +1,158 @@
-#include <Windows.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "inimigos.h"
-#include "savegame.h"
-#include "menuBatalha.h"
+/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+//FunÃƒÂ§ÃƒÂ£o que exibe os status do inimigo comum
+int ler_inimigo_comum(){ 
+	
+	inimigo_comum = fopen("./dados/inic_status.txt", "r");
 
-int ataquenoSlime(Save *save, ini_comum inimigoComum){ // tirar upd // Juntar com a arma // Fazer o dano funcional
-	int ataque;
-	srand(time(NULL));
+	//Entrada de Dados via arquivo ".txt"
+	fscanf(inimigo_comum, "%s %d %d %d %d %d %s",&inimigoComum.nome, &inimigoComum.hp, &inimigoComum.agi, &inimigoComum.def,
+	 &inimigoComum.ata, &inimigoComum.mp, &inimigoComum.fraq);
+	 
+	//ExibiÃƒÂ§ÃƒÂ£o dos status na Tela
+	printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("                STATUS DO SLIME                \n");
+	printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n"); 
+	printf("Nome: %s\nHP: %d\nAgilidade: %d\nDefesa: %d\nAtaque: %d\nMP: %d\nFraqueza: %s\n", inimigoComum.nome, inimigoComum.hp, inimigoComum.agi, 
+	inimigoComum.def, inimigoComum.ata, inimigoComum.mp, inimigoComum.fraq);
 	
-	ataque = rand() % (20 - 1 + 1) + 1; 
-	if(ataque == 1){ /* um erro critico nÃ¯Â¿Â½o pode ser afetado por buffs*/
-	sleep(2);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	printf("        VOCE TEVE UM ERRO CRITICO...             \n");
-	printf("        E deu 0 de dano                            ");
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-		upd_inimigo_comum();
-		return inimigoComum.hp;
-	}
-	
-	else if(ataque + save->personagem.ata <= inimigoComum.agi){/*agilidade do inimigo(nesse caso slime)*/
-	sleep(2);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	printf("        O SLIME DO VAZIO DESVIOU...              \n");
-	printf("        E perdeu 0 pontos de vida                  ");
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-		upd_inimigo_comum();
-		return inimigoComum.hp;
-	}
-	else if(ataque + save->personagem.ata <= inimigoComum.def){/*defesa do inimigo(nesse caso slime)*/
-	sleep(2);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	printf("        O SLIME DO  VAZIO DEFENDEU!!!            \n");
-	printf("         tirou %d pontos de vida do slime      ", ataque);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	if((inimigoComum.hp - ataque ) <= 0){
-	printf("       O SLIME DO VAZIO FOI NOCAUTEADO!!           ");
+	fclose(inimigo_comum);
 	return 0;
-	}
-	else{
-	printf("        Ele ainda tem %d pontos de vida            ", inimigoComum.hp = inimigoComum.hp - ataque);
-	}
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-		
-		upd_inimigo_comum();
-		return inimigoComum.hp;
-		
-	}
+}
+//FunÃƒÂ§ÃƒÂ£o que exibe os status do inimigo elite
+int ler_inimigo_elite(){
 	
-	else if(ataque + save->personagem.ata > inimigoComum.def){
-	sleep(2);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	printf("        VOCE ACERTOU!!!                          \n");
-	printf("        E tirou %d pontos de vida do slime      ", ataque);
-	printf("\n-----------------------------------------------\n");
-	if((inimigoComum.hp - ataque ) <= 0){
-	printf("       O SLIME DO VAZIO FOI NOCAUTEADO!!           ");
-	return 0;
-	}
-	else{
-	printf("        Ele ainda tem %d pontos de vida            ", inimigoComum.hp = inimigoComum.hp - ataque);
-	}
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-		
-		upd_inimigo_comum();
-		return inimigoComum.hp;
-	}
 	
-	else if(ataque == 20){ /*um acerto critico nÃ¯Â¿Â½o pode depender de buffs*/
-	sleep(2);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=\n");
-	printf("        VOCE ACERTOU UM ATAQUE CRITICO                 \n");
-	printf("        E tirou %d pontos de vida do slime do vazio      ", 2 * ataque);
-	printf("\n-----------------------------------------------------\n");
-	if((inimigoComum.hp - ataque ) <= 0){
-	printf("       O SLIME DO VAZIO FOI NOCAUTEADO!!           ");
+	inimigo_elite = fopen("./dados/inie_status.txt", "r");
+	
+	//Entrada de Dados via arquivo ".txt"
+	fscanf(inimigo_elite, "%s %d %d %d %d %d %s %s\n",&inimigoElite.nome, &inimigoElite.hp, &inimigoElite.agi, &inimigoElite.def,
+	 &inimigoElite.ata, &inimigoElite.mp, &inimigoElite.fraq, &inimigoElite.hab_esp);
+	 
+	//ExibiÃƒÂ§ÃƒÂ£o dos status na Tela 
+	printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("          STATUS DO CAVALEIRO NEGRO            \n");
+	printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("Nome: %s\nHP: %d\nAgilidade: %d\nDefesa: %d\nAtaque: %d\nMP: %d\nFraqueza: %s\nHabilidade especial: %s\n", 
+	inimigoElite.nome, inimigoElite.hp, inimigoElite.agi, inimigoElite.def, inimigoElite.ata, inimigoElite.mp, inimigoElite.fraq, inimigoElite.hab_esp);
+	
+	fclose(inimigo_elite);
 	return 0;
-	}
-	else{
-	printf("        Ele ainda tem %d pontos de vida            ", inimigoComum.hp = inimigoComum.hp - ataque);
-	}
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-		upd_inimigo_comum();
-		return inimigoComum.hp;
-	}
 }
 
-int ataqueSlime(Save *heroi){ // TUDO OK!
-    int ataque;
-	int danoDoAtaque;
-	srand(time(NULL));
-	danoDoAtaque = rand() % (8 - 4 + 1) + 4;
-	ataque = rand() % (20 - 1 + 1) + 1; 
+//FunÃƒÂ§ÃƒÂ£o que exibe os status do inimigo Boss
+int ler_inimigo_boss(){
 	
-	if(ataque == 1)/* um erro critico nÃ¯Â¿Â½o pode ser afetado por buffs*/{ 
-	sleep(2);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	printf("        O SLIME DO VAZIO TE ATACA...             \n");
-	printf("        Ele errou o golpe                          ");
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	return heroi->personagem.hp;
-	}
+	inimigo_boss = fopen("./dados/inib_status.txt", "r");
 	
-	else if(ataque <= (heroi->personagem.agi)/2){
-	sleep(2);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	printf("        O SLIME DO VAZIO TE ATACA...             \n");
-	printf("        voce desvia do golpe                       ");
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	return heroi->personagem.hp;
-	}
-
-	else if(ataque <= heroi->personagem.def){
-	sleep(2);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
-	printf("        O SLIME DO VAZIO TE ATACA...             \n");
-	printf("O ataque foi fraco, mas voce ainda perde %d pontos de vida",danoDoAtaque - 1);
-	printf("\n--------------------------------------------------------\n");
-	heroi->personagem.hp = heroi->personagem.hp - danoDoAtaque  + 1;
-	printf("        Voce ainda tem %d pontos de vida           ",heroi->personagem.hp);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
+	//Entrada de Dados via arquivo ".txt"
+	fscanf(inimigo_boss, "%s %d %d %d %d %d %s %s %d\n",&inimigoBoss.nome, &inimigoBoss.hp, &inimigoBoss.agi, &inimigoBoss.def,
+	 &inimigoBoss.ata, &inimigoBoss.mp, &inimigoBoss.fraq, &inimigoBoss.hab_esp, &inimigoBoss.regen);
+	 
+	//ExibiÃƒÂ§ÃƒÂ£o dos status na Tela 
+	printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("            STATUS DO BOSS                     \n");
+	printf("-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("Nome: %s\nHP: %d\nAgilidade: %d\nDefesa: %d\nAtaque: %d\nMP: %d\nFraqueza: %s\nHabilidade especial: %s\nRegeneraÃƒÂ§ÃƒÂ£o %d%%\n", 
+	inimigoBoss.nome, inimigoBoss.hp, inimigoBoss.agi, inimigoBoss.def, inimigoBoss.ata, inimigoBoss.mp, inimigoBoss.fraq, inimigoBoss.hab_esp, inimigoBoss.regen);
 	
-	return heroi->personagem.hp;
-	}
-
-	else if(ataque > heroi->personagem.def){
-	sleep(2);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	printf("        O SLIME DO VAZIO TE ATACA...             \n");
-	printf("        Ele te tirou %d pontos de vida             ",danoDoAtaque);
-	printf("\n-----------------------------------------------\n");
-	heroi->personagem.hp = heroi->personagem.hp - danoDoAtaque;
-	printf("        Voce ainda tem %d pontos de vida           ",heroi->personagem.hp);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	return heroi->personagem.hp;
-	}
-}
-
-int bloquear(Save *heroi, ini_comum inimigoComum){ /*garante uma defesa*/
-	int ataque;
-	
-	ataque = rand() % 3;
-	heroi->personagem.hp = heroi->personagem.hp - ataque;
-	sleep(2);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	printf("       VOCE DEFENDEU!!!                          \n");
-	printf("       E conseguiu diminuir o dano para %d         ", ataque);
-	printf("\n-----------------------------------------------\n");
-	printf("        Voce ainda tem %d pontos de vida\n         ",heroi->personagem.hp);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	return heroi->personagem.hp;
-}
-int bloquearElite(Save *heroi, ini_comum inimigoElite){ /*garante uma defesa*/
-	int ataque;
-	
-	ataque = rand() % 8;
-	heroi->personagem.hp = heroi->personagem.hp - ataque;
-	sleep(2);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	printf("       VOCE DEFENDEU!!!                          \n");
-	printf("       E conseguiu diminuir o dano para %d         ", ataque);
-	printf("\n-----------------------------------------------\n");
-	printf("        Voce ainda tem %d pontos de vida\n         ",heroi->personagem.hp);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	return heroi->personagem.hp;
-}
-
-int fugir(){ //Colocar .
-	sleep(2);
-	printf("\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n");
-	printf("           Voce nao consegue escapar!            ");
-	printf("\nxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\n");
-		return 1;
-	}
-
-int usar_item(Save *save){
-	int escolhaItem;
-	int quantidadePocao = 999; //infinitas
-	do{
-	sleep(2);
-	printf("MOCHILA:\n1.Pocao de Cura(%dx)\n5.Sair\n", quantidadePocao);
-	scanf("%d", &escolhaItem);
-	if(escolhaItem == 1){
-		save->personagem.hp = save->personagem.hp + 10;
-		printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-		printf("                +10 HP RESTAURADO                 ");
-		printf("\n-----------------------------------------------\n");
-		printf("            Voce tem %d pontos de vida\n           ",save->personagem.hp);
-		printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	}
-	} while(escolhaItem != 1 && escolhaItem != 5);
-
-	return escolhaItem;
-}
-
-
-int ataquenoCavaleiro(Save *save, ini_comum inimigoComum){
-	int ataque;
-	srand(time(NULL));
-	
-	ataque = rand() % (20 - 1 + 1) + 1; 
-	if(ataque == 1){ /* um erro critico nÃ¯Â¿Â½o pode ser afetado por buffs*/
-	sleep(2);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	printf("        VOCE TEVE UM ERRO CRITICO...             \n");
-	printf("        E deu 0 de dano                            ");
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-		upd_inimigo_elite();
-		return inimigoElite.hp;
-	}
-	
-	else if(ataque + save->personagem.ata <= inimigoElite.agi){/*agilidade do inimigo(nesse caso slime)*/
-	sleep(2);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	printf("        O CAVALEIRO NEGRO DESVIOU                \n");
-	printf("        E perdeu 0 pontos de vida                  ");
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-		upd_inimigo_elite();
-		return inimigoElite.hp;
-	}
-	else if(ataque + save->personagem.ata <= inimigoElite.def){/*defesa do inimigo(nesse caso slime)*/
-	sleep(2);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	printf("        O CAVALEIRO NEGRO DEFENDEU!!!            \n");
-	printf("        Mas perdeu %d pontos de vida               ", ataque);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	if((inimigoElite.hp - ataque ) <= 0){
-	printf("        O CAVALEIRO NEGRO FOI NOCAUTEADO!!         ");
+	fclose(inimigo_boss);
 	return 0;
-	}
-	else{
-	printf("        Ele ainda tem %d pontos de vida            ", inimigoElite.hp = inimigoElite.hp - ataque);
-	}
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-		
-		upd_inimigo_elite();
-		return inimigoElite.hp;
-		
-	}
 	
-	else if(ataque + save->personagem.ata > inimigoElite.def){
-	sleep(2);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	printf("        VOCE ACERTOU!!!                          \n");
-	printf("    E tirou %d pontos de vida do Cavaleiro Negro   ", ataque);
-	printf("\n-----------------------------------------------\n");
-	if((inimigoElite.hp - ataque ) <= 0){
-	printf("       O CAVALEIRO NEGRO FOI NOCAUTEADO!!          ");
-	return 0;
-	}
-	else{
-	printf("        Ele ainda tem %d pontos de vida            ", inimigoElite.hp = inimigoElite.hp - ataque);
-	}
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-		
-		upd_inimigo_elite();
-		return inimigoElite.hp;
-	}
-	
-	else if(ataque == 20){ /*um acerto critico nÃ¯Â¿Â½o pode depender de buffs*/
-	sleep(2);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=\n");
-	printf("        VOCE ACERTOU UM ATAQUE CRITICO                 \n");
-	printf("        E tirou %d pontos de vida do Cavaleiro Negro     ", 2 * ataque);
-	printf("\n-----------------------------------------------------\n");
-	if((inimigoElite.hp - ataque ) <= 0){
-	printf("       O SLIME DO VAZIO FOI NOCAUTEADO!!           ");
-	return 0;
-	}
-	else{
-	printf("        Ele ainda tem %d pontos de vida            ", inimigoElite.hp = inimigoElite.hp - ataque);
-	}
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-		upd_inimigo_elite();
-		return inimigoElite.hp;
-	}
 }
-
-int ataqueCavaleiro(Save *save){
-    int ataque;
-	int danoDoAtaque;
-	srand(time(NULL));
-	danoDoAtaque = rand() % (12 - 4 + 1) + 4;
-	ataque = rand() % (20 - 1 + 1) + 1; 
+//Apaga os dados salvos na struct de inimigo comum
+int apa_inimigo_comum(){
+	inimigo_comum = fopen("./dados/inic_status.txt", "w");
 	
-	if(ataque == 1)/* um erro critico nÃ¯Â¿Â½o pode ser afetado por buffs*/{ 
-	sleep(2);
+	fprintf(inimigo_comum,"Apagado\n0\n0\n0\n0\n0\nApagado\n");
 	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	printf("        O CAVALEIRO NEGRO TE ATACA...            \n");
-	printf("        Ele errou o golpe                          ");
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	return save->personagem.hp;
-	}
+	printf("       Os status do SLIME foram apagados!\n");
 	
-	else if(ataque <= (save->personagem.agi)/2){
-	sleep(2);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	printf("        O CAVALEIRO NEGRO TE ATACA...            \n");
-	printf("        voce desvia do golpe                       ");
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	return save->personagem.hp;
-	}
-
-	else if(ataque <= save->personagem.def){
-	sleep(2);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=\n");
-	printf("        O CAVALEIRO NEGRO TE ATACA...            \n");
-	printf("O ataque foi fraco, mas voce ainda perde %d pontos de vida",danoDoAtaque - 2);
-	printf("\n---------------------------------------------------------\n");
-	save->personagem.hp = save->personagem.hp - danoDoAtaque  + 2;
-	printf("        Voce ainda tem %d pontos de vida           ",save->personagem.hp);
-	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	fclose(inimigo_comum);
+	return 0;
+}
+//Apaga os dados salvos na struc de inimigo elite
+int apa_inimigo_elite(){
+	inimigo_elite = abrirArquivo("./dados/inie_status.txt", "w");
 	
-	return save->personagem.hp;
-	}
-
-	else if(ataque > save->personagem.def){
-	sleep(2);
+	fprintf(inimigo_elite,"Apagado\n0\n0\n0\n0\n0\nApagado\nApagado\n");
 	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	printf("        O CAVALEIRO NEGRO TE ATACA...            \n");
-	printf("        Ele te tirou %d pontos de vida             ",danoDoAtaque);
-	printf("\n-----------------------------------------------\n");
-	save->personagem.hp = save->personagem.hp - danoDoAtaque;
-	printf("        Voce ainda tem %d pontos de vida           ",save->personagem.hp);
+	printf("  Os status do CAVALEIRO_NEGRO foram apagados!\n");
+	
+	fclose(inimigo_elite);
+	return 0;
+}
+//Apaga os dados salvos na structÃ‚Â deÃ‚Â inimigoÃ‚Â boss
+int apa_inimigo_boss(){
+	inimigo_boss = abrirArquivo("./dados/inib_status.txt", "w");
+	
+	fprintf(inimigo_boss,"Apagado\n0\n0\n0\n0\n0\nApagado\nApagado\n0\n");
 	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
-	return save->personagem.hp;
-	}
-
+	printf("       Os status do BOSS foram apagados!\n");
+	
+	fclose(inimigo_boss);
+	return 0;
+}
+//Atualiza os status no arquivo .txt de inimigos comuns
+int upd_inimigo_comum(){
+inimigo_comum = fopen("./dados/inic_status.txt", "w");
+	
+	fprintf(inimigo_comum,"Slime_do_vazio\n30\n5\n13\n5\n15\nFogo\n");
+	fclose(inimigo_comum);
+	return 0;
+}
+//Atualiza os status no arquivo .txt de inimigos elite
+int upd_inimigo_elite(){
+	inimigo_elite = fopen("./dados/inie_status.txt", "w");
+	
+	fprintf(inimigo_elite,"Cavaleiro_Negro\n45\n16\n20\n15\n15\nMagia\nCorte_Fantasma\n");
+	
+	fclose(inimigo_elite);
+	return 0;
+}
+//Atualiza os status no arquivo .txt do inimigo boss
+int upd_inimigo_boss(){
+inimigo_boss = abrirArquivo("./dados/inib_status.txt", "w");
+	
+	fprintf(inimigo_boss,"Vazio_V2\n160\n35\n45\n30\n35\nMagia\nToque_da_penumbra\n20\n");
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("        Os status do BOSS atualizados!\n");
+	
+	fclose(inimigo_boss);
+	return 0;
+}
+//Cria um aqruivo .txt com os status do inimigo comum
+int cri_inimigo_comum(){
+inimigo_comum = abrirArquivo("./dados/inic_status.txt", "w");
+	
+	fprintf(inimigo_comum,"Slime\n30\n\n3\n5\n15\nFogo\n");
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("        O arquivo do SLIME foi criado!\n");
+	
+	fclose(inimigo_comum);
+	return 0;
+}
+//Cria um arquivo .txt com os status do inimigo elite
+int cri_inimigo_elite(){
+inimigo_elite = abrirArquivo("./dados/inie_status.txt", "w");
+	
+	fprintf(inimigo_elite,"Cavaleiro_Negro\n50\n20\n20\n15\n10\nMagia\nCorte_Fantasma\n");
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("   O arquiva do CAVALEIRO_NEGRO foi criado!\n");
+	
+	fclose(inimigo_elite);
+	return 0;
+}
+//Cria um um arquivo .txt com os status do inimigo boss
+int cri_inimigo_boss(){
+inimigo_boss = abrirArquivo("./dados/inib_status.txt", "w");
+	
+	fprintf(inimigo_boss,"Vazio\n150\n30\n40\n25\n30\nMagia\nToque_da_penumbra\n15\n");
+	printf("\n-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\n");
+	printf("           O arquivo do BOSS criado!\n");
+	
+	fclose(inimigo_boss);
+	return 0;
 }
