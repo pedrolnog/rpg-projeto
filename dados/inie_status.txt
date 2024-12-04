@@ -1,6 +1,6 @@
 Cavaleiro_Negro
-50
-20
+45
+16
 20
 15
 15

@@ -17,7 +17,7 @@ void inventario(Personagem *MC);
 void comprarItem(Consumiveis *itens, Personagem *MC);
 void viewInventario(Consumiveis *itens);
 void descartarItem(Consumiveis *itens, Personagem *MC);
-void obterArma(Armas *arma, Consumiveis *itens);
+void obterArma(Arma *arma, Consumiveis *itens);
 
 FILE mcArquivo;
 FILE itensARQ;
