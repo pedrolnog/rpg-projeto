@@ -38,12 +38,16 @@ void iniciarJogo() {
                 break;
         }
 
-        do {
-            printf("\n\nProsseguir para a próxima fase?\n\n");
-            printf("1. Continuar.\n2. Sair.\n");
-            scanf("%d", &escolha);
-            fflush(stdin); 
-        } while (escolha != 1 && escolha != 2); // Evita escolhas diferentes de 1 e 2.
+        if (save.nivel > 1) {
+            printf("Fase inexistente.\n");
+        } else {
+            do {
+                printf("\n\nProsseguir para a próxima fase?\n\n");
+                printf("1. Continuar.\n2. Sair.\n");
+                scanf("%d", &escolha);
+                fflush(stdin); 
+            } while (escolha != 1 && escolha != 2); // Evita escolhas diferentes de 1 e 2.
+        }
 
     } while (escolha != 2); // Evita voltar para o menu após cada nível.
 }

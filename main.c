@@ -15,10 +15,15 @@
 int main() {
     int escolha = 0, escolha2 = 0;
     char *nomeArquivo = "./dados/saveFile.txt";
+    char *nomePasta = "./dados";
     
     setlocale(LC_ALL, ""); // UTF-8 n?o funciona. Mudar encoding. (https://cursos.alura.com.br/forum/topico-acentuacao-com-setlocale-nao-funciona-105663)    
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
+
+    if (access(nomePasta, F_OK) == -1) {
+        criarPasta();
+    }
 
     do {
         printf("\n Coração de Auryn \n");
